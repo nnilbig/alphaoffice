@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>西區交易室 3D</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -28,7 +30,7 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:14px;overflow:hidden}
 .app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 400px}
 .stage{position:relative;min-width:0;min-height:0;overflow:hidden}
-#gl{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;display:block;touch-action:none}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 .hud{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:max(14px,env(safe-area-inset-left,0px));display:flex;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
 .title{pointer-events:auto;display:flex;gap:10px;align-items:center;background:rgba(20,22,32,.86);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
 .title b{color:var(--gold);font-size:15px}
@@ -140,7 +142,7 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
     <div class="hud"><div class="title"><span id="logo" class="logo"></span><b>西區交易室</b><span id="clock">--:--</span></div></div>
     <div class="hint">拖曳旋轉・滾輪縮放・點貓咪看分工</div>
     <div class="tools">
-      <button id="pxBtn" aria-pressed="true">像素感</button>
+      <button id="pxBtn" aria-pressed="false">像素感</button>
       <button id="resetBtn">回到預設視角</button>
     </div>
   </div>
@@ -192,7 +194,7 @@ function avatar(c,bg){const cv=document.createElement("canvas");cv.width=16;cv.h
   FACE.forEach((r,j)=>{for(let i=0;i<16;i++){const ch=r[i];if(ch!=="."&&pal[ch]){t.fillStyle=pal[ch];t.fillRect(i,j+1,1,1)}}});return cv}
 
 /* ---------- renderer ---------- */
-const renderer=new THREE.WebGLRenderer({canvas,antialias:false});
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
 renderer.setPixelRatio(1);
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
 renderer.outputColorSpace=THREE.SRGBColorSpace;
@@ -208,9 +210,9 @@ controls.minPolarAngle=0.75;controls.maxPolarAngle=1.15;
 controls.minZoom=0.7;controls.maxZoom=3;controls.screenSpacePanning=true;
 resetCam();
 
-let PX=innerWidth<600?2:3;
+const PXON=innerWidth<600?2:3;let PX=1;
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
-  renderer.setSize(Math.max(1,Math.floor(w/PX)),Math.max(1,Math.floor(h/PX)),false);
+  const dpr=PX===1?Math.min(2,devicePixelRatio||1):1/PX;renderer.setSize(Math.max(1,Math.floor(w*dpr)),Math.max(1,Math.floor(h*dpr)),false);
   const aspect=w/h,viewH=Math.max(17.5,24.5/aspect);
   camera.left=-viewH*aspect/2;camera.right=viewH*aspect/2;camera.top=viewH/2;camera.bottom=-viewH/2;camera.updateProjectionMatrix()}
 new ResizeObserver(resize).observe(stage);
@@ -514,7 +516,7 @@ canvas.addEventListener("pointermove",e=>{if(e.buttons)return;canvas.style.curso
 
 /* ---------- tools ---------- */
 const pxBtn=document.getElementById("pxBtn");
-const PXON=PX;pxBtn.addEventListener("click",()=>{PX=PX===1?PXON:1;pxBtn.setAttribute("aria-pressed",PX!==1);canvas.style.imageRendering=PX!==1?"pixelated":"auto";resize()});
+pxBtn.addEventListener("click",()=>{PX=PX===1?PXON:1;pxBtn.setAttribute("aria-pressed",PX!==1);canvas.style.imageRendering=PX!==1?"pixelated":"auto";resize()});
 document.getElementById("resetBtn").addEventListener("click",()=>{focusing=0;resetCam()});
 
 /* ---------- clock ---------- */
