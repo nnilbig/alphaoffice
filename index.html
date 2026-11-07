@@ -136,12 +136,10 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
   </div>
   <aside id="aside">
     <div class="sec" id="home">
-      <h2>成員 <small>每人負責「前一日・今日・明日」</small></h2>
+      <h2>成員</h2>
       <div class="crew" id="crew"></div>
       <div class="detail" id="detail">點選貓咪或名單，打開牠的報告。</div>
     </div>
-    <div class="chan" id="chanHead"><h3><i>#</i>西區交易室</h3><span class="demo">訊息為示意</span></div>
-    <div class="feed" id="feed"></div>
     <div class="report" id="report" hidden></div>
   </aside>
 </div>
@@ -428,14 +426,14 @@ const REPORTS={
  tabby:{date:"今日",quote:"跌了六千點，地板一樣要掃。先把呼吸掃乾淨，再看計畫。",
   tips:["停損不是認輸，是把明天的子彈留下來。","計畫裡寫多少，手就停在多少。","看不懂的時候，不做也是一種做。","等待不是浪費時間，是在練心。"]}
 };
-const reportEl=document.getElementById("report"),homeEls=[document.getElementById("home"),document.getElementById("chanHead"),document.getElementById("feed")];
+const reportEl=document.getElementById("report"),homeEls=[document.getElementById("home")];
 const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const samplePromise=window.claude?window.claude.use("sample"):Promise.resolve(null);
 let curTab="today";
 function closeReport(){reportEl.hidden=true;homeEls.forEach(e=>e.hidden=false)}
 function openReport(k){
   const c=CREW[k],r=REPORTS[k];homeEls.forEach(e=>e.hidden=true);reportEl.hidden=false;reportEl.style.setProperty("--acc",c.col);
-  let h=`<div class="rhead"><button class="back" id="back">← 頻道</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>
+  let h=`<div class="rhead"><button class="back" id="back">← 成員</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>
   <div class="rmeta"><span>${esc(r.date)}</span><span class="chip demo">示意：以 11/6 資料排版</span></div>`;
   if(k==="tabby"){
     h+=`<p class="quote">「${esc(r.quote)}」</p><div><div class="rmeta" style="margin-bottom:6px">修心策略</div><ul class="rlist">${r.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
@@ -467,14 +465,6 @@ async function setupAsk(k,c,r){
     catch(err){if(err&&err.code==="not_granted"){f.hidden=true}else ans.textContent=err&&err.code==="rate_limited"?"問太快了，稍等一下再問。":"這次沒有回應，請再按一次。"}
     finally{btn.disabled=false}}
 }
-/* feed */
-const FEED=[["brown","07:30","前一日・今日・明日國際行事曆整理中"],["black","07:45","讀取 10 月營收：鴻海、信驊、創意"],["orange","07:52","夜盤、法人、匯率數據已更新"],["sys","白貓會議開始：今日重點觀察"],["white","08:10","重點一：4 萬點能否收復"],["tabby","08:15","「跌了六千點，先喝口茶，再看計畫。」"]];
-const feedEl=document.getElementById("feed");
-FEED.forEach(f=>{if(f[0]==="sys"){const d=document.createElement("div");d.className="sys";d.textContent=f[1];feedEl.appendChild(d);return}
-  const c=CREW[f[0]];const m=document.createElement("div");m.className="msg";m.appendChild(avatar(c,"#23263a"));
-  const body=document.createElement("div");const who=document.createElement("span");who.className="who";who.style.color=c.col;who.textContent=f[0]==="white"?"白貓":c.name;const t=document.createElement("span");t.className="t";t.textContent=f[1];const p=document.createElement("p");p.textContent=f[2];
-  body.append(who,t,p);m.appendChild(body);m.tabIndex=0;m.onclick=()=>select(f[0],true);m.onkeydown=e=>{if(e.key==="Enter")select(f[0],true)};feedEl.appendChild(m)});
-
 /* ---------- picking ---------- */
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();let downAt=null;
 function pick(e){const r=canvas.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera);
