@@ -33,7 +33,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:
 .title{pointer-events:auto;display:flex;gap:10px;align-items:center;background:rgba(20,22,32,.86);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
 .title b{color:var(--gold);font-size:15px}
 .title span{color:var(--muted);font-size:12px;font-family:var(--f-mono)}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.logo canvas{width:28px;height:28px;image-rendering:pixelated;border-radius:6px;display:block}
+.title{padding:5px 12px 5px 6px}
 .tools{position:absolute;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px}
 .tools button{font:500 12px var(--f-body);color:var(--text);background:rgba(20,22,32,.86);border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer}
 .tools button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
@@ -53,6 +54,15 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 .member canvas{width:36px;height:36px;image-rendering:pixelated;border-radius:6px}
 .member b{font-size:14px;display:block}
 .member span{font-size:12px;color:var(--muted)}
+.member .st{display:block;font-size:11px;font-family:var(--f-mono);margin-top:1px}
+.member .st.ok{color:#3fd17f}
+.member .st.wait{color:#6b7282}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.check li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;padding:9px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:13.5px}
+.check i{font-style:normal;font-weight:700}
+.check .tm{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.empty{margin:0;color:var(--muted);font-size:13.5px;line-height:1.7;padding:14px;border:1px dashed var(--line);border-radius:8px}
+.rmeta select{font:12px var(--f-mono);background:#12141c;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
 .detail{margin-top:10px;padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:13px;line-height:1.6}
 .detail b{color:var(--gold)}
 .chan{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
@@ -127,7 +137,7 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 <div class="app">
   <div class="stage" id="stage">
     <canvas id="gl" aria-label="西區交易室 3D 等角辦公室：辦公區六個座位、會議室、主管室與茶水間，點選貓咪可查看分工"></canvas>
-    <div class="hud"><div class="title"><span class="dot"></span><b>西區交易室</b><span id="clock">--:--</span></div></div>
+    <div class="hud"><div class="title"><span id="logo" class="logo"></span><b>西區交易室</b><span id="clock">--:--</span></div></div>
     <div class="hint">拖曳旋轉・滾輪縮放・點貓咪看分工</div>
     <div class="tools">
       <button id="pxBtn" aria-pressed="true">像素感</button>
@@ -152,19 +162,25 @@ import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let byAgent={},dbState="loading";
+const todayStr=()=>new Date().toLocaleDateString("sv-SE",{timeZone:"Asia/Taipei"});
+const lst=k=>byAgent[k]||[];
+function submittedToday(k){const l=lst(k);return !!(l.length&&l[0].date===todayStr())}
 const stage=document.getElementById("stage"),canvas=document.getElementById("gl");
 
 /* ---------- crew data ---------- */
 const CREW={
-  brown:{name:"棕貓",role:"國際事件與數據",detail:"整理前一日、今日、明日的國際事件與數據：美股、費半、匯率、國際行事曆。",col:"#3ad7ff",
+  brown:{name:"Mocha",role:"棕貓・國際事件與數據",detail:"整理前一日、今日、明日的國際事件與數據：美股、費半、匯率、國際行事曆。",col:"#3ad7ff",
     fur:"#9a6a42",furL:"#c79a72",eye:"#7fd0a0",shirt:"#2f6fb0",acc:"#ffffff",pants:"#2f3a55"},
-  black:{name:"黑貓",role:"產業數據",detail:"整理前一日、今日、明日的產業數據：月營收、法說會、族群消息。",col:"#ffb43a",
+  black:{name:"Onyx",role:"黑貓・產業數據",detail:"整理前一日、今日、明日的產業數據：月營收、法說會、族群消息。",col:"#ffb43a",
     fur:"#34323f",furL:"#57556a",eye:"#ffe14a",shirt:"#c98a2a",acc:"#fff2c8",pants:"#2f2a3d"},
-  orange:{name:"橘貓",role:"盤勢數據",detail:"整理前一日、今日、明日的盤勢數據：夜盤、三大法人、成交量、匯率。",col:"#3fd17f",
+  orange:{name:"Tango",role:"橘貓・盤勢數據",detail:"整理前一日、今日、明日的盤勢數據：夜盤、三大法人、成交量、匯率。",col:"#3fd17f",
     fur:"#e8913a",furL:"#f6c58a",stripe:"#c96a1e",eye:"#5aa0e8",shirt:"#3a9a5a",acc:"#ffffff",pants:"#3a3a48"},
-  tabby:{name:"斑紋貓",role:"情緒價值・交易修心",detail:"待在茶水間，提供情緒價值與交易修心策略：停損紀律、等待、穩住心態。",col:"#c9a9ff",
+  tabby:{name:"Miso",role:"斑紋貓・情緒價值與交易修心",detail:"待在茶水間，提供情緒價值與交易修心策略：停損紀律、等待、穩住心態。",col:"#c9a9ff",
     fur:"#a39a8a",furL:"#d8d0c0",stripe:"#5f574a",eye:"#8fd06a",shirt:"#e9e2d0",acc:"#c25a4f",pants:"#6b4630"},
-  white:{name:"白貓 ×4",role:"會議：今日重點觀察",detail:"四隻白貓在會議室，彙整三位同事的資料，討論今日重點觀察。",col:"#9ec7ff",
+  gray:{name:"Earl",role:"灰貓・主管",detail:"主管室裡看書，順便看看今天誰交稿了。",col:"#c9cdd6",
+    fur:"#8a8f98",furL:"#b9bec6",eye:"#f0b84a",shirt:"#2b3550",acc:"#c25a4f",pants:"#2a2a33"},
+  white:{name:"Snow",role:"白貓・會議：今日重點觀察",detail:"四隻白貓在會議室，彙整三位同事的資料，討論今日重點觀察。",col:"#9ec7ff",
     fur:"#f6f3ee",furL:"#ffffff",eye:"#5ab0f0",shirt:"#4f7cc4",acc:"#ffffff",pants:"#2f3a55"}
 };
 const WHITE_SHIRTS=[["#4f7cc4","#5ab0f0"],["#c25a7a","#f0b84a"],["#5a5a6a","#7fd0a0"],["#3a9a8a","#b07bff"]];
@@ -254,7 +270,7 @@ const hourH=box(0.02,0.14,0.03,"#1d1820",0.08,2.55,6.185);const minH=box(0.02,0.
 hourH.geometry.translate(0,0.07-0.07,0);
 /* meeting TV */
 const tvTex=ctex(40,22,(t)=>{t.fillStyle="#10243a";t.fillRect(0,0,40,22);["#ffd23f","#ff5a4e","#3fd17f","#7fc4ff"].forEach((c,i)=>{t.fillStyle=c;t.fillRect(3,3+i*5,2,2);t.fillStyle="#cfe6ff";t.fillRect(7,3+i*5,[24,18,28,14][i],1)})});
-box(4.6,1.3,0.08,"#1b2130",1.2,1.4,0.0);plane(4.4,1.15,new THREE.MeshBasicMaterial({map:tvTex}),3.5,2.05,0.09,0);
+box(4.6,1.3,0.08,"#1b2130",1.2,1.4,0.0);const tvMat=new THREE.MeshBasicMaterial({map:tvTex,color:"#3a3f4a"});plane(4.4,1.15,tvMat,3.5,2.05,0.09,0);
 
 /* ---------- interior walls ---------- */
 const glass=new THREE.MeshLambertMaterial({color:"#bfe1ff",transparent:true,opacity:0.26,depthWrite:false});
@@ -272,8 +288,9 @@ function plant(x,z,s=1){const g=new THREE.Group();box(0.5*s,0.45*s,0.5*s,"#f2f2e
   [[0,0.85,0,0.34,"#4f9a4a"],[-0.18,0.72,0.12,0.24,"#5fb056"],[0.18,0.75,-0.1,0.24,"#3f8a3c"],[0.05,1.1,0.05,0.22,"#6cc35a"]].forEach(([a,b,c,r,col])=>{const m=new THREE.Mesh(new THREE.IcosahedronGeometry(r*s,0),new THREE.MeshLambertMaterial({color:col,flatShading:true}));m.position.set(a*s,b*s,c*s);m.castShadow=true;g.add(m)});
   g.position.set(x,0,z);scene.add(g);return g}
 const screens=[];
-function screenTex(scheme){const tx=ctex(14,9,()=>{});tx.userData.scheme=scheme;drawScreen(tx);screens.push(tx);return tx}
-function drawScreen(tx){const {t}=tx.userData,s=tx.userData.scheme;t.fillStyle=s.bg;t.fillRect(0,0,14,9);if(!s.dots)return;
+function screenTex(scheme,agent){const tx=ctex(14,9,()=>{});tx.userData.scheme=scheme;tx.userData.agent=agent;drawScreen(tx);screens.push(tx);return tx}
+function drawScreen(tx){const {t,agent}=tx.userData,s=tx.userData.scheme;t.fillStyle=s.bg;t.fillRect(0,0,14,9);if(!s.dots)return;
+  if(agent&&!submittedToday(agent)){t.fillStyle="rgba(0,0,0,.55)";t.fillRect(0,0,14,9);t.fillStyle=s.dots[0];if(Math.random()<0.5)t.fillRect((Math.random()*13)|0,(Math.random()*8)|0,1,1);tx.needsUpdate=true;return}
   for(let n=0;n<22;n++){const q=Math.random();t.fillStyle=q<0.45?s.dots[0]:q<0.72?s.dots[1]:s.dots[2];t.fillRect((Math.random()*13+0.5)|0,(Math.random()*8+0.5)|0,1,1)}tx.needsUpdate=true}
 const SCHEMES={
   yellow:{bg:"#2b2510",dots:["#ffd23f","#ffffff","#ffe680"],glow:"#ffd23f"},
@@ -281,21 +298,21 @@ const SCHEMES={
   blue:{bg:"#0f1a33",dots:["#4f9cf0","#9ed0ff","#ffd23f"],glow:"#4f9cf0"},
   off:{bg:"#1b2130",dots:null}
 };
-function desk(x,z,scheme){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
+function desk(x,z,scheme,agent){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
   const w=3,d=1.2;for(const [a,b] of [[0,0],[w-0.1,0],[0,d-0.1],[w-0.1,d-0.1]])box(0.1,0.72,0.1,"#9aa3b0",a,0,b,g);
   box(w,0.08,d,"#f1f3f6",0,0.72,0,g);
   const mw=(w-0.6)/2;
   for(let k=0;k<2;k++){const mx=0.2+k*(mw+0.2);
     box(0.08,0.22,0.08,"#2c3448",mx+mw/2-0.04,0.8,0.25,g);box(0.5,0.03,0.3,"#2c3448",mx+mw/2-0.25,0.8,0.14,g);
     box(mw,0.62,0.07,"#1b2130",mx,1.0,0.22,g);
-    const tx=screenTex(scheme);const sm=new THREE.MeshBasicMaterial({map:tx});
+    const tx=screenTex(scheme,agent);const sm=new THREE.MeshBasicMaterial({map:tx});
     plane(mw-0.1,0.52,sm,mx+mw/2,1.31,0.295,0,g);
     if(scheme.glow){const l=new THREE.PointLight(scheme.glow,0.6,2.2,2);l.position.set(mx+mw/2,1.2,0.7);g.add(l)}}
   box(1.1,0.03,0.32,"#3a4152",w/2-0.55,0.8,d-0.5,g);
   return g}
 const COLS=[1,4.6,8.2];
 COLS.forEach(c=>desk(c,7.2,SCHEMES.off));
-desk(COLS[0],10.6,SCHEMES.yellow);desk(COLS[1],10.6,SCHEMES.red);desk(COLS[2],10.6,SCHEMES.blue);
+desk(COLS[0],10.6,SCHEMES.yellow,"brown");desk(COLS[1],10.6,SCHEMES.red,"black");desk(COLS[2],10.6,SCHEMES.blue,"orange");
 plant(0.6,6.7);plant(0.7,13.4,1.1);plant(7.6,0.6,1.1);plant(17.5,0.6,0.9);plant(17.5,11.5,0.9);
 
 /* server rack */
@@ -362,6 +379,11 @@ placeCat("brown",CREW.brown,COLS[0]+2.4,12.5,Math.PI/4,{kind:"work"});
 placeCat("black",CREW.black,COLS[1]+2.4,12.5,Math.PI/4,{kind:"work"});
 placeCat("orange",CREW.orange,COLS[2]+2.4,12.5,Math.PI/4,{kind:"work"});
 placeCat("tabby",CREW.tabby,15.6,12.2,Math.PI/4,{kind:"tea",mug:true});
+{const g=placeCat("gray",CREW.gray,17.15,3.0,Math.PI/4-0.25,{kind:"read"});const u=g.userData;
+  const book=new THREE.Group();book.position.set(0,0.42,0.3);u.body.add(book);u.book=book;
+  box(0.4,0.03,0.28,"#8e3b2f",-0.2,0,-0.14,book);box(0.18,0.035,0.25,"#fbf6ea",-0.19,0.02,-0.125,book);box(0.18,0.035,0.25,"#fbf6ea",0.01,0.02,-0.125,book);
+  book.rotation.x=-0.9;u.armL.rotation.x=-1.0;u.armR.rotation.x=-1.0;u.head.rotation.x=0.28;
+  book.traverse(o=>{if(o.isMesh)o.userData.catRoot=g});}
 [[2.6,1.55,0],[4.6,1.55,0],[0.95,3.1,Math.PI/2],[6.25,3.1,-Math.PI/2]].forEach(([x,z,r],i)=>placeCat("white",{...CREW.white,shirt:WHITE_SHIRTS[i][0],eye:WHITE_SHIRTS[i][1]},x,z,r,{kind:"meet"}));
 
 /* selection ring */
@@ -369,12 +391,16 @@ const ring=new THREE.Mesh(new THREE.RingGeometry(0.5,0.66,24),new THREE.MeshBasi
 ring.rotation.x=-Math.PI/2;ring.position.y=0.05;ring.visible=false;scene.add(ring);
 const rings=[];for(let i=0;i<4;i++){const r=ring.clone();r.material=ring.material;rings.push(r);scene.add(r)}
 
+/* ---------- logo + favicon (gray cat) ---------- */
+{const lg=avatar(CREW.gray,"#2a2e40");document.getElementById("logo").appendChild(lg);
+  try{const f=document.createElement("canvas");f.width=64;f.height=64;const t=f.getContext("2d");t.imageSmoothingEnabled=false;t.drawImage(avatar(CREW.gray,"#2a2e40"),0,0,64,64);
+    const link=document.createElement("link");link.rel="icon";link.href=f.toDataURL("image/png");document.head.appendChild(link)}catch(e){}}
 /* ---------- panel ---------- */
 const crewEl=document.getElementById("crew"),detail=document.getElementById("detail");
-const ORDER=["brown","black","orange","tabby","white"];
+const ORDER=["brown","black","orange","white","tabby","gray"];
 const memberBtns={};
 ORDER.forEach(k=>{const c=CREW[k];const b=document.createElement("button");b.className="member";b.setAttribute("aria-pressed","false");
-  const av=avatar(c,"#23263a");b.appendChild(av);const tx=document.createElement("div");tx.innerHTML=`<b style="color:${c.col}"></b><span></span>`;tx.querySelector("b").textContent=c.name;tx.querySelector("span").textContent=c.role;b.appendChild(tx);
+  const av=avatar(c,"#23263a");b.appendChild(av);const tx=document.createElement("div");tx.innerHTML=`<b style="color:${c.col}"></b><span></span>`;tx.querySelector("b").textContent=c.name;tx.querySelector("span").textContent=c.role;const st=document.createElement("span");st.className="st";st.id="st-"+k;tx.appendChild(st);b.appendChild(tx);
   b.addEventListener("click",()=>select(k,true));crewEl.appendChild(b);memberBtns[k]=b});
 let selected=null;const focus=new THREE.Vector3();let focusing=0;
 function highlight(k,fly){selected=k;Object.entries(memberBtns).forEach(([kk,b])=>b.setAttribute("aria-pressed",kk===k));
@@ -383,88 +409,92 @@ function highlight(k,fly){selected=k;Object.entries(memberBtns).forEach(([kk,b])
   if(fly&&list.length){focus.set(0,0,0);list.forEach(c=>focus.add(c.position));focus.divideScalar(list.length);focus.y=0.6;focusing=1}}
 function select(k,fly){highlight(k,fly);openReport(k)}
 
-/* ---------- reports (示意資料：11/6) ---------- */
-const SRC={
-  udnNight:["經濟日報｜11月5日期交所夜盤行情","https://money.udn.com/money/story/11112/9860894"],
-  ettoday:["ETtoday｜台指期夜盤失守4萬大關","https://finance.ettoday.net/news/3267214"],
-  ctee:["工商時報｜11/6盤前","https://www.ctee.com.tw/news/20261106700406-430201"],
-  udn5:["經濟日報｜11月6日五件財經大事","https://money.udn.com/money/story/5607/9860880"],
-  cnyesRev:["鉅亨網｜11/6 大型公司10月營收一覽","https://news.cnyes.com/news/id/6649363"],
-  cna:["中央社｜台股崩跌寫多項紀錄","https://www.cna.com.tw/news/afe/202611060172.aspx"],
-  cnyesInst:["鉅亨網｜三大法人賣超1140億元","https://news.cnyes.com/news/id/6650107"],
-  cnaFund:["中央社｜國安基金宣布第10次進場護盤","https://www.cna.com.tw/news/afe/202611060270.aspx"],
-  uan:["優分析｜台股收盤失守4萬點","https://uanalyze.com.tw/articles/7157158532"]
-};
-const REPORTS={
- brown:{date:"11/6（五）",summary:"費半單日重挫逾一成，AI 與記憶體股領跌，台積電 ADR 跌近 11%。新台幣 11/5 創一年半新低，11/6 小幅回升。",
-  cols:["國際商品","收盤","漲跌"],
-  kpis:[["美國費半期","9,016","−1,025.5","down"],["那斯達克100期","26,820","−1,420","down"],["道瓊期","51,900","−1,766","down"],["黃金期","4,126.5","−11.3","down"],["新台幣（11/6）","32.768","升值 1.08 角","up"]],
-  days:{
-   prev:["費城半導體指數單日跌逾 10%，那斯達克跌近 5%，道瓊跌約 2.5%（台灣時間 23:55 報價）。","台積電 ADR 收盤跌近 11%；美光、AMD 盤中跌幅分別超過 13% 與 15%，輝達跌近 7%。","市場解讀：美國期中選舉民主黨勝出，擔心 AI 基礎建設計畫受阻，晶片股遭大舉賣出。"],
-   today:["新台幣 11/5 收 32.876 元，創一年半新低；11/6 收 32.768 元，升值 1.08 角。","外資 10 月淨匯出創單月紀錄，外匯存底跌破 6,000 億美元。"],
-   next:["觀察週末美股與費半是否止跌。","MSCI 季度調整 11/12 公布。"]},
-  src:["udnNight","ettoday","udn5"]},
- black:{date:"11/6（五）",summary:"大盤崩跌，但 10 月營收顯示 AI 供應鏈基本面仍強：鴻海、信驊、創意、台光電、台燿都創新高。記憶體與光學是弱項。",
-  cols:["10 月營收","數值","變化"],
-  kpis:[["鴻海","約 1.3 兆","年增 45.73%","up"],["聯電","252 億","年增 18.33%","up"],["信驊","首破 20 億","連 12 月新高","up"],["創意","首破 80 億","單月新高","up"],["大立光","—","年減 7%","down"]],
-  days:{
-   prev:["10 月營收：鴻海約 1.3 兆元、年增 45.73%；台光電、台燿雙雙創單月新高。","日月光通過 1,237 億元投資案，在楠梓、南科擴充高階封測產能，增聘 3,553 名員工。","美光傳因勞資爭議暫停桃園 Fab 11E 新廠工程，經濟部表示持續協調。","南電第三季 EPS 5.10 元；大立光預期 11 月出貨動能續降。"],
-   today:["日月光投控跌 7.87%、國巨跌 7.54%、台達電跌 6.64%、聯電跌 6.5%，跌幅大於台積電。","信驊跌停；散熱（奇鋐、雙鴻、健策）與部分封裝、載板中型股跌停。","逆勢：藥華藥漲 7.17%（10 月營收年增逾一倍）、儒鴻漲 2.06%。"],
-   next:["MSCI 11/12 公布，南電、景碩、台燿被點名可能納入。","營收創新高、股價卻跟著大盤殺的 AI 供應鏈，觀察是否先止跌。","美光桃園廠後續消息對記憶體族群的影響。"]},
-  src:["ctee","cnyesRev","udn5","cna"]},
- orange:{date:"11/6（五）",summary:"加權指數收 39,701，跌 1,873 點，失守 4 萬點。盤中一度大跌 3,737 點、創史上最大。三大法人賣超 1,140 億，只有投信站買方。",
-  cols:["盤勢數據","數值","變化"],
-  kpis:[["台指期夜盤（11/5）","38,936","−2,946","down"],["加權指數","39,701.64","−1,873.08","down"],["盤中低點","37,837","最大跌 3,737","down"],["成交金額","1.2461 兆","—","flat"],["外資","賣超 911.9 億","連 7 賣","down"],["投信","買超 266.6 億","連 19 買","up"],["自營商","賣超 494.8 億","—","down"]],
-  days:{
-   prev:["台指期夜盤收 38,936，跌 2,946 點，盤中跌破 4 萬點。","11/5 日盤加權已先跌 1,374 點，連六天收黑。"],
-   today:["開盤 38,915 即跌破 4 萬點與年線，台指期早盤一度跌停。","低點 37,837 後低接買盤進場，最高拉回 40,435，收 39,701。","上漲 105 家、下跌 952 家；台積電收 2,135，跌 105 元。","國安基金收盤後宣布第 10 次進場，可動用上限 5,000 億元。"],
-   next:["4 萬點能否收復，今日低點 37,837 是否守住。","國安基金實際進場力道。","外資賣超是否縮小、投信買超能否延續。"]},
-  src:["cna","cnyesInst","cnaFund","uan"]},
- white:{date:"11/6（五）收盤後",summary:"四隻白貓彙整棕貓、黑貓、橘貓的資料，排出下個交易日要盯的重點。",
-  obs:[["國安基金實際進場力道，以及權值股承接","橘貓・盤勢"],["4 萬點能否收復，今日低點 37,837 是否守住","橘貓・盤勢"],["外資賣超是否縮小，投信買超能否延續","橘貓・盤勢"],["週末美股與費半是否止跌","棕貓・國際"],["營收創新高的 AI 供應鏈是否先止跌；MSCI 11/12 公布","黑貓・產業"]],
-  src:["cna","cnaFund","ctee"]},
- tabby:{date:"今日",quote:"跌了六千點，地板一樣要掃。先把呼吸掃乾淨，再看計畫。",
-  tips:["停損不是認輸，是把明天的子彈留下來。","計畫裡寫多少，手就停在多少。","看不懂的時候，不做也是一種做。","等待不是浪費時間，是在練心。"]}
-};
+/* ---------- reports (from the page database) ---------- */
+const SCHED={brown:"07:30",black:"07:45",orange:"08:00",white:"08:20",tabby:"08:20"};
+const SAYINGS=["停損不是認輸，是把明天的子彈留下來。","計畫裡寫多少，手就停在多少。","看不懂的時候，不做也是一種做。","等待不是浪費時間，是在練心。","今天賺的可能是運氣，守住紀律的才是本事。","心亂的時候，先把桌子擦乾淨。","盤面吵的時候，聲音最小的那個是你自己。"];
+const curDate={};
+const WD="日一二三四五六";
+const isWeekend=()=>{const [y,m,d]=todayStr().split("-").map(Number);const w=new Date(Date.UTC(y,m-1,d)).getUTCDay();return w===0||w===6};
+function dateLabel(d){const [y,m,dd]=d.split("-").map(Number);const w=new Date(Date.UTC(y,m-1,dd)).getUTCDay();return `${m}/${dd}（${WD[w]}）`}
 const reportEl=document.getElementById("report"),homeEls=[document.getElementById("home")];
 const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const safeUrl=u=>/^https:\/\//.test(String(u||""))?u:null;
 const samplePromise=window.claude?window.claude.use("sample"):Promise.resolve(null);
-let curTab="today";
-function closeReport(){reportEl.hidden=true;homeEls.forEach(e=>e.hidden=false)}
+let curTab="today",openK=null;
+function refreshStatus(){
+  for(const k of ORDER){const el=document.getElementById("st-"+k);if(!el)continue;
+    if(k==="gray"){el.textContent="主管室・看書中";el.className="st wait";continue}
+    if(dbState!=="ok"){el.textContent=dbState==="loading"?"讀取中…":"離線";el.className="st wait";continue}
+    const l=lst(k);if(submittedToday(k)){el.textContent=`今日 ${l[0].time||""} 已交`;el.className="st ok"}
+    else{el.textContent=isWeekend()?"週末休市":`今日預計 ${SCHED[k]}`;el.className="st wait"}}
+  tvMat.color.set(submittedToday("white")?"#ffffff":"#3a3f4a");
+}
+function closeReport(){openK=null;reportEl.hidden=true;homeEls.forEach(e=>e.hidden=false)}
+function head(c){return `<div class="rhead"><button class="back" id="back">← 成員</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>`}
+function wire(c){document.getElementById("rav").replaceWith(avatar(c,"#23263a"));document.getElementById("back").onclick=closeReport}
 function openReport(k){
-  const c=CREW[k],r=REPORTS[k];homeEls.forEach(e=>e.hidden=true);reportEl.hidden=false;reportEl.style.setProperty("--acc",c.col);
-  let h=`<div class="rhead"><button class="back" id="back">← 成員</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>
-  <div class="rmeta"><span>${esc(r.date)}</span><span class="chip demo">示意：以 11/6 資料排版</span></div>`;
+  openK=k;const c=CREW[k];homeEls.forEach(e=>e.hidden=true);reportEl.hidden=false;reportEl.style.setProperty("--acc",c.col);
+  let h=head(c);
+  if(k==="gray"){
+    h+=`<div class="rmeta"><span>${esc(dateLabel(todayStr()))}・今日交稿狀態${isWeekend()?"（週末休市）":""}</span></div><ul class="check">${["brown","black","orange","white","tabby"].map(a=>{const ok=submittedToday(a),cc=CREW[a];return `<li><i style="color:${ok?"#3fd17f":"#6b7282"}">${ok?"✓":"·"}</i><span style="color:${cc.col}">${esc(cc.name)}</span><span class="tm">${ok?esc(lst(a)[0].time||"")+" 已交":isWeekend()?"休市":"預計 "+SCHED[a]}</span></li>`}).join("")}</ul>
+    <p class="empty">Earl 在主管室看書。點其他貓咪，可以打開牠們的報告。</p>`;
+    reportEl.innerHTML=h;wire(c);return}
+  const l=lst(k);
+  if(!l.length){
+    if(k==="tabby"){const q=SAYINGS[Number(todayStr().replace(/-/g,""))%SAYINGS.length];
+      h+=`<p class="quote">「${esc(q)}」</p><p class="empty">Miso 每天 ${SCHED.tabby} 會依當天盤勢換一句。</p>`}
+    else h+=`<p class="empty">${dbState==="loading"?"報告讀取中…":dbState==="ok"?`${esc(c.name)} 還沒交過報告。每個交易日 ${SCHED[k]} 會送來第一份。`:"報告暫時讀不到。請確認已登入 Claude 後重新開啟這頁。"}</p>`;
+    h+=askForm(k,c);reportEl.innerHTML=h;wire(c);setupAsk(k,c,{quote:h});return}
+  const date=curDate[k]&&l.find(x=>x.date===curDate[k])?curDate[k]:l[0].date,r=l.find(x=>x.date===date);
+  const opts=l.length>1?`<select id="dsel" aria-label="選擇日期">${l.map(x=>`<option value="${esc(x.date)}"${x.date===date?" selected":""}>${esc(dateLabel(x.date))}</option>`).join("")}</select>`:`<span>${esc(dateLabel(date))}</span>`;
+  h+=`<div class="rmeta">${opts}${r.time?`<span class="chip">${esc(r.time)} 交稿</span>`:""}${r.closeTime?`<span class="chip">${esc(r.closeTime)} 收盤補充</span>`:""}</div>`;
   if(k==="tabby"){
-    h+=`<p class="quote">「${esc(r.quote)}」</p><div><div class="rmeta" style="margin-bottom:6px">修心策略</div><ul class="rlist">${r.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    h+=`<p class="quote">「${esc(r.quote)}」</p>${(r.tips||[]).length?`<div><div class="rmeta" style="margin-bottom:6px">修心策略</div><ul class="rlist">${r.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}`;
   }else if(k==="white"){
-    h+=`<p class="rsum">${esc(r.summary)}</p><div class="rmeta">今日重點觀察</div><ol class="obs">${r.obs.map(([t,s])=>`<li><div>${esc(t)}<small>資料來源：${esc(s)}</small></div></li>`).join("")}</ol>`;
+    h+=`<p class="rsum">${esc(r.summary)}</p><div class="rmeta">今日重點觀察</div><ol class="obs">${(r.obs||[]).map(o=>`<li><div>${esc(o.text)}${o.from?`<small>資料來源：${esc(o.from)}</small>`:""}</div></li>`).join("")}</ol>`;
   }else{
-    h+=`<p class="rsum">${esc(r.summary)}</p>
-    <div class="rtbl"><table><thead><tr><th>${esc(r.cols[0])}</th><th class="n">${esc(r.cols[1])}</th><th class="n">${esc(r.cols[2])}</th></tr></thead><tbody>${r.kpis.map(([a,b,d,dir])=>`<tr><td>${esc(a)}</td><td class="n">${esc(b)}</td><td class="n ${dir}">${esc(d)}</td></tr>`).join("")}</tbody></table></div>
-    <div class="tabs" role="tablist">${[["prev","前一日"],["today","今日"],["next","明日"]].map(([id,l])=>`<button role="tab" data-tab="${id}" aria-selected="${id===curTab}">${l}</button>`).join("")}</div>
-    <ul class="rlist" id="tablist" role="tabpanel"></ul>`;
+    const cols=r.cols&&r.cols.length===3?r.cols:["項目","數值","變化"];
+    h+=`<p class="rsum">${esc(r.summary)}</p>`;
+    if((r.kpis||[]).length)h+=`<div class="rtbl"><table><thead><tr><th>${esc(cols[0])}</th><th class="n">${esc(cols[1])}</th><th class="n">${esc(cols[2])}</th></tr></thead><tbody>${r.kpis.map(x=>`<tr><td>${esc(x.label)}</td><td class="n">${esc(x.value)}</td><td class="n ${["up","down"].includes(x.dir)?x.dir:"flat"}">${esc(x.chg)}</td></tr>`).join("")}</tbody></table></div>`;
+    h+=`<div class="tabs" role="tablist">${[["prev","前一日"],["today","今日"],["next","明日"]].map(([id,lb])=>`<button role="tab" data-tab="${id}" aria-selected="${id===curTab}">${lb}</button>`).join("")}</div><ul class="rlist" id="tablist" role="tabpanel"></ul>`;
   }
-  if(r.src)h+=`<div class="rsrc">資料來源<ul>${r.src.map(id=>`<li><a href="${SRC[id][1]}" target="_blank" rel="noopener">${esc(SRC[id][0])}</a></li>`).join("")}</ul></div>`;
-  h+=`<form class="ask" id="askf" hidden><label for="askq">${k==="tabby"?"請斑紋貓聊聊（只談心態與紀律）":"問"+esc(c.name.replace(" ×4",""))+"（只根據這份報告回答）"}</label><div class="askrow"><input id="askq" autocomplete="off" placeholder="${k==="tabby"?"例：連跌六天，我該怎麼穩住心？":"例：今天最該注意哪一點？"}"><button id="askb">問</button></div><p class="ans" id="ans" hidden></p></form>`;
-  reportEl.innerHTML=h;reportEl.scrollTop=0;
-  document.getElementById("rav").replaceWith(avatar(c,"#23263a"));
-  document.getElementById("back").onclick=closeReport;
+  const src=(r.sources||[]).filter(x=>safeUrl(x.u));
+  if(src.length)h+=`<div class="rsrc">資料來源<ul>${src.map(x=>`<li><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t||x.u)}</a></li>`).join("")}</ul></div>`;
+  h+=askForm(k,c);
+  const keep=reportEl.querySelector("#askq")?.value||"",keepAns=reportEl.querySelector("#ans");const keepAnsT=keepAns&&!keepAns.hidden?keepAns.textContent:"";
+  reportEl.innerHTML=h;wire(c);
+  const ds=document.getElementById("dsel");if(ds)ds.onchange=()=>{curDate[k]=ds.value;openReport(k)};
   const tl=document.getElementById("tablist");
-  if(tl){const fill=()=>{tl.innerHTML=r.days[curTab].map(x=>`<li>${esc(x)}</li>`).join("");reportEl.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===curTab))};
+  if(tl){const fill=()=>{const d=(r.days&&r.days[curTab])||[];tl.innerHTML=d.length?d.map(x=>`<li>${esc(x)}</li>`).join(""):`<li style="list-style:none;margin-left:-1.2em;color:var(--muted)">${curTab==="next"&&k==="orange"?"收盤後 14:00 補上。":"這一段今天沒有內容。"}</li>`;reportEl.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===curTab))};
     reportEl.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{curTab=b.dataset.tab;fill()});fill()}
+  if(keep)document.getElementById("askq").value=keep;if(keepAnsT){const a=document.getElementById("ans");a.hidden=false;a.textContent=keepAnsT}
   setupAsk(k,c,r);
 }
+function askForm(k,c){return `<form class="ask" id="askf" hidden><label for="askq">${k==="tabby"?"請 Miso 聊聊（只談心態與紀律）":"問 "+esc(c.name)+"（只根據這份報告回答）"}</label><div class="askrow"><input id="askq" autocomplete="off" placeholder="${k==="tabby"?"例：連跌六天，我該怎麼穩住心？":"例：今天最該注意哪一點？"}"><button id="askb">問</button></div><p class="ans" id="ans" hidden></p></form>`}
 async function setupAsk(k,c,r){
   const sample=await samplePromise;const f=document.getElementById("askf");if(!f||!sample)return;f.hidden=false;
   const q=document.getElementById("askq"),btn=document.getElementById("askb"),ans=document.getElementById("ans");
   f.onsubmit=async e=>{e.preventDefault();const question=q.value.trim();if(!question)return;btn.disabled=true;ans.hidden=false;ans.textContent="想一下…";
-    const persona=k==="tabby"?`你是西區交易室茶水間的斑紋貓，負責情緒價值與交易修心。說話溫暖、簡短，只談心態、紀律、停損與等待，絕不給買賣、價位或標的建議。`:`你是西區交易室的${c.name}，負責${c.role}。只根據下面的報告回答，報告沒有的就直說沒有，不要猜，也不要給買賣建議。`;
-    const prompt=`${persona}用繁體中文、口語，120 字以內。\n\n報告：${JSON.stringify(r)}\n\n問題：${question}`;
+    const persona=k==="tabby"?`你是西區交易室茶水間的斑紋貓 Miso，負責情緒價值與交易修心。說話溫暖、簡短，只談心態、紀律、停損與等待，絕不給買賣、價位或標的建議。`:`你是西區交易室的 ${c.name}（${c.role}）。只根據下面的報告回答，報告沒有的就直說沒有，不要猜，也不要給買賣建議。`;
+    const clean=k==="tabby"?{}:{date:r.date,summary:r.summary,kpis:r.kpis,days:r.days,obs:r.obs};
+    const prompt=`${persona}用繁體中文、口語，120 字以內。\n\n報告：${JSON.stringify(clean)}\n\n問題：${question}`;
     try{const res=await sample(prompt,{modelTier:"quick",onText:({text})=>{ans.textContent=text}});ans.textContent=res.text}
     catch(err){if(err&&err.code==="not_granted"){f.hidden=true}else ans.textContent=err&&err.code==="rate_limited"?"問太快了，稍等一下再問。":"這次沒有回應，請再按一次。"}
     finally{btn.disabled=false}}
 }
+(async()=>{
+  refreshStatus();
+  const db=window.claude?await window.claude.use("db"):null;
+  const fail=()=>{dbState="offline";refreshStatus();if(openK)openReport(openK)};
+  if(!db){fail();return}
+  const timer=setTimeout(()=>{if(dbState==="loading")fail()},10000);
+  db.collection("reports").orderBy("date","desc").limit(400).onSnapshot(snap=>{
+    clearTimeout(timer);dbState="ok";byAgent={};
+    for(const d of snap.docs){const x=d.data();if(!x||!x.agent||!x.date)continue;(byAgent[x.agent]=byAgent[x.agent]||[]).push(x)}
+    for(const k in byAgent)byAgent[k].sort((a,b)=>b.date.localeCompare(a.date));
+    refreshStatus();screens.forEach(drawScreen);if(openK)openReport(openK);
+  },()=>{clearTimeout(timer);fail()});
+})();
 /* ---------- picking ---------- */
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();let downAt=null;
 function pick(e){const r=canvas.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera);
@@ -498,6 +528,7 @@ function animate(now){
       u.tail.forEach((s,i)=>{s.rotation.z=Math.sin(p*1.3+i*0.6)*0.25});
       if(u.kind==="work"){u.armL.rotation.x=Math.sin(p*3)*0.25;u.armR.rotation.x=-Math.sin(p*3)*0.25;u.head.rotation.y=Math.sin(p*0.4)*0.15}
       else if(u.kind==="tea"){const sip=(Math.sin(p*0.5)+1)/2;u.armR.rotation.x=-0.9-sip*0.9;u.head.rotation.x=-sip*0.15;u.armL.rotation.x=0}
+      else if(u.kind==="read"){u.head.rotation.x=0.28+Math.sin(p*0.3)*0.04;u.head.rotation.y=Math.sin(p*0.25)*0.1;u.armL.rotation.x=-1.0;u.armR.rotation.x=-1.0+(Math.sin(p*0.35)>0.97?-0.3:0);u.book.rotation.z=Math.sin(p*0.3)*0.04}
       else if(u.kind==="meet"){const talk=Math.sin(p*0.7)>0.6;u.head.rotation.x=talk?Math.sin(p*6)*0.12:0;u.armR.rotation.x=talk?-0.4-Math.sin(p*4)*0.2:0}
     }
     ring.rotation.z+=dt*1.5;rings.forEach(r=>r.rotation.z+=dt*1.5);
