@@ -23,9 +23,10 @@ body{margin:0}
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   color-scheme:dark;
 }
+[hidden]{display:none!important}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:14px;overflow:hidden}
-.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 360px}
+.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 400px}
 .stage{position:relative;min-width:0;min-height:0;overflow:hidden}
 #gl{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;display:block;touch-action:none}
 .hud{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:max(14px,env(safe-area-inset-left,0px));display:flex;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
@@ -66,21 +67,66 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 .msg p{margin:2px 0 0;font-size:13px;color:#d7dbe4;line-height:1.55}
 .sys{justify-self:center;font-size:12px;color:#9ec7ff;background:#1c2433;border:1px solid #2f4366;border-radius:999px;padding:4px 12px}
 
+.report{flex:1;overflow:auto;min-height:0;padding:14px 16px 20px;display:grid;gap:14px;align-content:start}
+.rhead{display:grid;grid-template-columns:auto 44px 1fr;gap:10px;align-items:center}
+.back{all:unset;cursor:pointer;font-size:13px;color:var(--muted);padding:6px 8px;border-radius:6px;border:1px solid var(--line)}
+.back:hover{color:var(--text)}.back:focus-visible{outline:2px solid var(--gold)}
+.rhead canvas{width:44px;height:44px;image-rendering:pixelated;border-radius:8px}
+.rhead b{display:block;font-size:16px}
+.rhead span{font-size:12px;color:var(--muted)}
+.rmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.chip{border:1px solid var(--line);border-radius:999px;padding:1px 9px;font-size:11px}
+.chip.demo{color:#e8c56b;border-color:#5a4a26}
+.rsum{margin:0;padding:10px 12px;border-radius:8px;background:var(--card);border-left:3px solid var(--acc,#ffd23f);font-size:14px;line-height:1.65}
+.rtbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+.rtbl table{border-collapse:collapse;width:100%;font-size:13px}
+.rtbl th,.rtbl td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.rtbl td:first-child{min-width:6em}
+.rtbl td.n:last-child{font-size:12px}
+.rtbl tr:last-child td{border-bottom:0}
+.rtbl th{font-size:11px;color:var(--muted);font-weight:500;background:#1c1f2a}
+.rtbl td.n,.rtbl th.n{text-align:right}
+.rtbl td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.up{color:#ff5a4e}.down{color:#3fd17f}.flat{color:var(--muted)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#1c1f2a;border:1px solid var(--line);border-radius:8px;padding:3px}
+.tabs button{all:unset;cursor:pointer;text-align:center;font-size:13px;padding:6px 0;border-radius:6px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:#2a2e40;color:var(--text);font-weight:700}
+.tabs button:focus-visible{outline:2px solid var(--gold)}
+.rlist{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:13.5px;line-height:1.6;color:#d7dbe4}
+.rlist li::marker{color:var(--acc,#ffd23f)}
+.obs{display:grid;gap:8px;margin:0;padding:0;list-style:none;counter-reset:o}
+.obs li{counter-increment:o;display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.55}
+.obs li::before{content:counter(o);width:22px;height:22px;border-radius:6px;background:#2a3550;color:#9ec7ff;font:700 12px var(--f-mono);display:grid;place-items:center}
+.obs small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.quote{margin:0;padding:16px;border-radius:10px;background:linear-gradient(180deg,#262138,#1f1b2e);border:1px solid #3a3058;font-size:16px;line-height:1.7;color:#efe6ff}
+.rsrc{font-size:12px;color:var(--muted)}.rsrc a{color:#9aa6c0}
+.rsrc ul{margin:4px 0 0;padding-left:1.2em;display:grid;gap:2px}
+.ask{display:grid;gap:6px;border-top:1px dashed var(--line);padding-top:12px}
+.ask label{font-size:12px;color:var(--muted)}
+.askrow{display:flex;gap:6px}
+.askrow input{flex:1;min-width:0;font:14px var(--f-body);background:#12141c;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.askrow input:focus-visible{outline:2px solid var(--gold)}
+.askrow button{font:700 13px var(--f-body);background:var(--gold);color:#1a1408;border:0;border-radius:8px;padding:0 14px;cursor:pointer}
+.askrow button:disabled{opacity:.5}
+.ans{margin:0;white-space:pre-wrap;font-size:13.5px;line-height:1.6;background:#12141c;border:1px solid var(--line);border-radius:8px;padding:10px}
+.msg{cursor:pointer;border-radius:8px;padding:4px;margin:-4px}
+.msg:hover{background:#1f2230}
+.member .open{font-size:11px;color:var(--muted)}
 @media (max-width:860px){
   body{overflow:auto}
   .app{grid-template-columns:1fr;grid-template-rows:56vh auto;height:auto}
+  .report{overflow:visible}
   aside{border-left:0;border-top:1px solid var(--line)}
   .feed{max-height:none}
   .hint{display:none}
 }
-@media (max-width:860px){.sec,.chan,.feed{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+@media (max-width:860px){.sec,.chan,.feed,.report{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="stage" id="stage">
     <canvas id="gl" aria-label="西區交易室 3D 等角辦公室：辦公區六個座位、會議室、主管室與茶水間，點選貓咪可查看分工"></canvas>
-    <div id="signs"></div>
     <div class="hud"><div class="title"><span class="dot"></span><b>西區交易室</b><span id="clock">--:--</span></div></div>
     <div class="hint">拖曳旋轉・滾輪縮放・點貓咪看分工</div>
     <div class="tools">
@@ -88,14 +134,15 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
       <button id="resetBtn">回到預設視角</button>
     </div>
   </div>
-  <aside>
-    <div class="sec">
+  <aside id="aside">
+    <div class="sec" id="home">
       <h2>成員 <small>每人負責「前一日・今日・明日」</small></h2>
       <div class="crew" id="crew"></div>
-      <div class="detail" id="detail">點選貓咪或名單，查看負責內容。</div>
+      <div class="detail" id="detail">點選貓咪或名單，打開牠的報告。</div>
     </div>
-    <div class="chan"><h3><i>#</i>西區交易室</h3><span class="demo">訊息為示意</span></div>
+    <div class="chan" id="chanHead"><h3><i>#</i>西區交易室</h3><span class="demo">訊息為示意</span></div>
     <div class="feed" id="feed"></div>
+    <div class="report" id="report" hidden></div>
   </aside>
 </div>
 
@@ -324,12 +371,6 @@ const ring=new THREE.Mesh(new THREE.RingGeometry(0.5,0.66,24),new THREE.MeshBasi
 ring.rotation.x=-Math.PI/2;ring.position.y=0.05;ring.visible=false;scene.add(ring);
 const rings=[];for(let i=0;i<4;i++){const r=ring.clone();r.material=ring.material;rings.push(r);scene.add(r)}
 
-/* ---------- room signs (HTML) ---------- */
-const SIGNS=[["會議室",new THREE.Vector3(3.5,2.35,6),"#9ec7ff"],["主管室",new THREE.Vector3(15.2,2.35,5),"#ffd23f"],["茶水間",new THREE.Vector3(15,2.5,9),"#c9a9ff"],["辦公區・6 席",new THREE.Vector3(5.6,2.1,8.9),"#e9ecf2"]];
-const signEls=SIGNS.map(([t,,c])=>{const d=document.createElement("div");d.className="sign";d.textContent=t;d.style.color=c;document.getElementById("signs").appendChild(d);return d});
-const v=new THREE.Vector3();
-function placeSigns(){const w=stage.clientWidth,h=stage.clientHeight;SIGNS.forEach(([,p],i)=>{v.copy(p).project(camera);signEls[i].style.left=((v.x+1)/2*w)+"px";signEls[i].style.top=((1-v.y)/2*h)+"px"})}
-
 /* ---------- panel ---------- */
 const crewEl=document.getElementById("crew"),detail=document.getElementById("detail");
 const ORDER=["brown","black","orange","tabby","white"];
@@ -338,18 +379,101 @@ ORDER.forEach(k=>{const c=CREW[k];const b=document.createElement("button");b.cla
   const av=avatar(c,"#23263a");b.appendChild(av);const tx=document.createElement("div");tx.innerHTML=`<b style="color:${c.col}"></b><span></span>`;tx.querySelector("b").textContent=c.name;tx.querySelector("span").textContent=c.role;b.appendChild(tx);
   b.addEventListener("click",()=>select(k,true));crewEl.appendChild(b);memberBtns[k]=b});
 let selected=null;const focus=new THREE.Vector3();let focusing=0;
-function select(k,fly){selected=k;Object.entries(memberBtns).forEach(([kk,b])=>b.setAttribute("aria-pressed",kk===k));
-  const c=CREW[k];detail.innerHTML="";const b=document.createElement("b");b.textContent=c.name;b.style.color=c.col;detail.append(b,document.createTextNode("："+c.detail));
+function highlight(k,fly){selected=k;Object.entries(memberBtns).forEach(([kk,b])=>b.setAttribute("aria-pressed",kk===k));
   const list=cats.filter(x=>x.userData.key===k);ring.visible=false;rings.forEach(r=>r.visible=false);
   list.forEach((cat,i)=>{const r=i===0?ring:rings[i-1];r.visible=true;r.position.set(cat.position.x,0.05,cat.position.z)});
   if(fly&&list.length){focus.set(0,0,0);list.forEach(c=>focus.add(c.position));focus.divideScalar(list.length);focus.y=0.6;focusing=1}}
+function select(k,fly){highlight(k,fly);openReport(k)}
+
+/* ---------- reports (示意資料：11/6) ---------- */
+const SRC={
+  udnNight:["經濟日報｜11月5日期交所夜盤行情","https://money.udn.com/money/story/11112/9860894"],
+  ettoday:["ETtoday｜台指期夜盤失守4萬大關","https://finance.ettoday.net/news/3267214"],
+  ctee:["工商時報｜11/6盤前","https://www.ctee.com.tw/news/20261106700406-430201"],
+  udn5:["經濟日報｜11月6日五件財經大事","https://money.udn.com/money/story/5607/9860880"],
+  cnyesRev:["鉅亨網｜11/6 大型公司10月營收一覽","https://news.cnyes.com/news/id/6649363"],
+  cna:["中央社｜台股崩跌寫多項紀錄","https://www.cna.com.tw/news/afe/202611060172.aspx"],
+  cnyesInst:["鉅亨網｜三大法人賣超1140億元","https://news.cnyes.com/news/id/6650107"],
+  cnaFund:["中央社｜國安基金宣布第10次進場護盤","https://www.cna.com.tw/news/afe/202611060270.aspx"],
+  uan:["優分析｜台股收盤失守4萬點","https://uanalyze.com.tw/articles/7157158532"]
+};
+const REPORTS={
+ brown:{date:"11/6（五）",summary:"費半單日重挫逾一成，AI 與記憶體股領跌，台積電 ADR 跌近 11%。新台幣 11/5 創一年半新低，11/6 小幅回升。",
+  cols:["國際商品","收盤","漲跌"],
+  kpis:[["美國費半期","9,016","−1,025.5","down"],["那斯達克100期","26,820","−1,420","down"],["道瓊期","51,900","−1,766","down"],["黃金期","4,126.5","−11.3","down"],["新台幣（11/6）","32.768","升值 1.08 角","up"]],
+  days:{
+   prev:["費城半導體指數單日跌逾 10%，那斯達克跌近 5%，道瓊跌約 2.5%（台灣時間 23:55 報價）。","台積電 ADR 收盤跌近 11%；美光、AMD 盤中跌幅分別超過 13% 與 15%，輝達跌近 7%。","市場解讀：美國期中選舉民主黨勝出，擔心 AI 基礎建設計畫受阻，晶片股遭大舉賣出。"],
+   today:["新台幣 11/5 收 32.876 元，創一年半新低；11/6 收 32.768 元，升值 1.08 角。","外資 10 月淨匯出創單月紀錄，外匯存底跌破 6,000 億美元。"],
+   next:["觀察週末美股與費半是否止跌。","MSCI 季度調整 11/12 公布。"]},
+  src:["udnNight","ettoday","udn5"]},
+ black:{date:"11/6（五）",summary:"大盤崩跌，但 10 月營收顯示 AI 供應鏈基本面仍強：鴻海、信驊、創意、台光電、台燿都創新高。記憶體與光學是弱項。",
+  cols:["10 月營收","數值","變化"],
+  kpis:[["鴻海","約 1.3 兆","年增 45.73%","up"],["聯電","252 億","年增 18.33%","up"],["信驊","首破 20 億","連 12 月新高","up"],["創意","首破 80 億","單月新高","up"],["大立光","—","年減 7%","down"]],
+  days:{
+   prev:["10 月營收：鴻海約 1.3 兆元、年增 45.73%；台光電、台燿雙雙創單月新高。","日月光通過 1,237 億元投資案，在楠梓、南科擴充高階封測產能，增聘 3,553 名員工。","美光傳因勞資爭議暫停桃園 Fab 11E 新廠工程，經濟部表示持續協調。","南電第三季 EPS 5.10 元；大立光預期 11 月出貨動能續降。"],
+   today:["日月光投控跌 7.87%、國巨跌 7.54%、台達電跌 6.64%、聯電跌 6.5%，跌幅大於台積電。","信驊跌停；散熱（奇鋐、雙鴻、健策）與部分封裝、載板中型股跌停。","逆勢：藥華藥漲 7.17%（10 月營收年增逾一倍）、儒鴻漲 2.06%。"],
+   next:["MSCI 11/12 公布，南電、景碩、台燿被點名可能納入。","營收創新高、股價卻跟著大盤殺的 AI 供應鏈，觀察是否先止跌。","美光桃園廠後續消息對記憶體族群的影響。"]},
+  src:["ctee","cnyesRev","udn5","cna"]},
+ orange:{date:"11/6（五）",summary:"加權指數收 39,701，跌 1,873 點，失守 4 萬點。盤中一度大跌 3,737 點、創史上最大。三大法人賣超 1,140 億，只有投信站買方。",
+  cols:["盤勢數據","數值","變化"],
+  kpis:[["台指期夜盤（11/5）","38,936","−2,946","down"],["加權指數","39,701.64","−1,873.08","down"],["盤中低點","37,837","最大跌 3,737","down"],["成交金額","1.2461 兆","—","flat"],["外資","賣超 911.9 億","連 7 賣","down"],["投信","買超 266.6 億","連 19 買","up"],["自營商","賣超 494.8 億","—","down"]],
+  days:{
+   prev:["台指期夜盤收 38,936，跌 2,946 點，盤中跌破 4 萬點。","11/5 日盤加權已先跌 1,374 點，連六天收黑。"],
+   today:["開盤 38,915 即跌破 4 萬點與年線，台指期早盤一度跌停。","低點 37,837 後低接買盤進場，最高拉回 40,435，收 39,701。","上漲 105 家、下跌 952 家；台積電收 2,135，跌 105 元。","國安基金收盤後宣布第 10 次進場，可動用上限 5,000 億元。"],
+   next:["4 萬點能否收復，今日低點 37,837 是否守住。","國安基金實際進場力道。","外資賣超是否縮小、投信買超能否延續。"]},
+  src:["cna","cnyesInst","cnaFund","uan"]},
+ white:{date:"11/6（五）收盤後",summary:"四隻白貓彙整棕貓、黑貓、橘貓的資料，排出下個交易日要盯的重點。",
+  obs:[["國安基金實際進場力道，以及權值股承接","橘貓・盤勢"],["4 萬點能否收復，今日低點 37,837 是否守住","橘貓・盤勢"],["外資賣超是否縮小，投信買超能否延續","橘貓・盤勢"],["週末美股與費半是否止跌","棕貓・國際"],["營收創新高的 AI 供應鏈是否先止跌；MSCI 11/12 公布","黑貓・產業"]],
+  src:["cna","cnaFund","ctee"]},
+ tabby:{date:"今日",quote:"跌了六千點，地板一樣要掃。先把呼吸掃乾淨，再看計畫。",
+  tips:["停損不是認輸，是把明天的子彈留下來。","計畫裡寫多少，手就停在多少。","看不懂的時候，不做也是一種做。","等待不是浪費時間，是在練心。"]}
+};
+const reportEl=document.getElementById("report"),homeEls=[document.getElementById("home"),document.getElementById("chanHead"),document.getElementById("feed")];
+const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const samplePromise=window.claude?window.claude.use("sample"):Promise.resolve(null);
+let curTab="today";
+function closeReport(){reportEl.hidden=true;homeEls.forEach(e=>e.hidden=false)}
+function openReport(k){
+  const c=CREW[k],r=REPORTS[k];homeEls.forEach(e=>e.hidden=true);reportEl.hidden=false;reportEl.style.setProperty("--acc",c.col);
+  let h=`<div class="rhead"><button class="back" id="back">← 頻道</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>
+  <div class="rmeta"><span>${esc(r.date)}</span><span class="chip demo">示意：以 11/6 資料排版</span></div>`;
+  if(k==="tabby"){
+    h+=`<p class="quote">「${esc(r.quote)}」</p><div><div class="rmeta" style="margin-bottom:6px">修心策略</div><ul class="rlist">${r.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  }else if(k==="white"){
+    h+=`<p class="rsum">${esc(r.summary)}</p><div class="rmeta">今日重點觀察</div><ol class="obs">${r.obs.map(([t,s])=>`<li><div>${esc(t)}<small>資料來源：${esc(s)}</small></div></li>`).join("")}</ol>`;
+  }else{
+    h+=`<p class="rsum">${esc(r.summary)}</p>
+    <div class="rtbl"><table><thead><tr><th>${esc(r.cols[0])}</th><th class="n">${esc(r.cols[1])}</th><th class="n">${esc(r.cols[2])}</th></tr></thead><tbody>${r.kpis.map(([a,b,d,dir])=>`<tr><td>${esc(a)}</td><td class="n">${esc(b)}</td><td class="n ${dir}">${esc(d)}</td></tr>`).join("")}</tbody></table></div>
+    <div class="tabs" role="tablist">${[["prev","前一日"],["today","今日"],["next","明日"]].map(([id,l])=>`<button role="tab" data-tab="${id}" aria-selected="${id===curTab}">${l}</button>`).join("")}</div>
+    <ul class="rlist" id="tablist" role="tabpanel"></ul>`;
+  }
+  if(r.src)h+=`<div class="rsrc">資料來源<ul>${r.src.map(id=>`<li><a href="${SRC[id][1]}" target="_blank" rel="noopener">${esc(SRC[id][0])}</a></li>`).join("")}</ul></div>`;
+  h+=`<form class="ask" id="askf" hidden><label for="askq">${k==="tabby"?"請斑紋貓聊聊（只談心態與紀律）":"問"+esc(c.name.replace(" ×4",""))+"（只根據這份報告回答）"}</label><div class="askrow"><input id="askq" autocomplete="off" placeholder="${k==="tabby"?"例：連跌六天，我該怎麼穩住心？":"例：今天最該注意哪一點？"}"><button id="askb">問</button></div><p class="ans" id="ans" hidden></p></form>`;
+  reportEl.innerHTML=h;reportEl.scrollTop=0;
+  document.getElementById("rav").replaceWith(avatar(c,"#23263a"));
+  document.getElementById("back").onclick=closeReport;
+  const tl=document.getElementById("tablist");
+  if(tl){const fill=()=>{tl.innerHTML=r.days[curTab].map(x=>`<li>${esc(x)}</li>`).join("");reportEl.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===curTab))};
+    reportEl.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{curTab=b.dataset.tab;fill()});fill()}
+  setupAsk(k,c,r);
+}
+async function setupAsk(k,c,r){
+  const sample=await samplePromise;const f=document.getElementById("askf");if(!f||!sample)return;f.hidden=false;
+  const q=document.getElementById("askq"),btn=document.getElementById("askb"),ans=document.getElementById("ans");
+  f.onsubmit=async e=>{e.preventDefault();const question=q.value.trim();if(!question)return;btn.disabled=true;ans.hidden=false;ans.textContent="想一下…";
+    const persona=k==="tabby"?`你是西區交易室茶水間的斑紋貓，負責情緒價值與交易修心。說話溫暖、簡短，只談心態、紀律、停損與等待，絕不給買賣、價位或標的建議。`:`你是西區交易室的${c.name}，負責${c.role}。只根據下面的報告回答，報告沒有的就直說沒有，不要猜，也不要給買賣建議。`;
+    const prompt=`${persona}用繁體中文、口語，120 字以內。\n\n報告：${JSON.stringify(r)}\n\n問題：${question}`;
+    try{const res=await sample(prompt,{modelTier:"quick",onText:({text})=>{ans.textContent=text}});ans.textContent=res.text}
+    catch(err){if(err&&err.code==="not_granted"){f.hidden=true}else ans.textContent=err&&err.code==="rate_limited"?"問太快了，稍等一下再問。":"這次沒有回應，請再按一次。"}
+    finally{btn.disabled=false}}
+}
 /* feed */
 const FEED=[["brown","07:30","前一日・今日・明日國際行事曆整理中"],["black","07:45","讀取 10 月營收：鴻海、信驊、創意"],["orange","07:52","夜盤、法人、匯率數據已更新"],["sys","白貓會議開始：今日重點觀察"],["white","08:10","重點一：4 萬點能否收復"],["tabby","08:15","「跌了六千點，先喝口茶，再看計畫。」"]];
 const feedEl=document.getElementById("feed");
 FEED.forEach(f=>{if(f[0]==="sys"){const d=document.createElement("div");d.className="sys";d.textContent=f[1];feedEl.appendChild(d);return}
   const c=CREW[f[0]];const m=document.createElement("div");m.className="msg";m.appendChild(avatar(c,"#23263a"));
   const body=document.createElement("div");const who=document.createElement("span");who.className="who";who.style.color=c.col;who.textContent=f[0]==="white"?"白貓":c.name;const t=document.createElement("span");t.className="t";t.textContent=f[1];const p=document.createElement("p");p.textContent=f[2];
-  body.append(who,t,p);m.appendChild(body);feedEl.appendChild(m)});
+  body.append(who,t,p);m.appendChild(body);m.tabIndex=0;m.onclick=()=>select(f[0],true);m.onkeydown=e=>{if(e.key==="Enter")select(f[0],true)};feedEl.appendChild(m)});
 
 /* ---------- picking ---------- */
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();let downAt=null;
@@ -389,10 +513,10 @@ function animate(now){
     ring.rotation.z+=dt*1.5;rings.forEach(r=>r.rotation.z+=dt*1.5);
   }
   if(focusing){controls.target.lerp(focus,0.08);if(controls.target.distanceTo(focus)<0.02)focusing=0}
-  controls.update();placeSigns();renderer.render(scene,camera);
+  controls.update();renderer.render(scene,camera);
 }
 resize();requestAnimationFrame(animate);
-select("brown",false);
+highlight("brown",false);
 </script>
 </body>
 </html>
