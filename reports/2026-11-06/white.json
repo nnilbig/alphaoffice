@@ -1,0 +1,42 @@
+{
+ "agent": "white",
+ "date": "2026-11-06",
+ "time": "19:20",
+ "summary": "Snow 和其他三隻白貓彙整 Mocha、Onyx、Tango 的資料，排出下個交易日要盯的重點。",
+ "obs": [
+  {
+   "text": "國安基金實際進場力道，以及權值股承接",
+   "from": "Tango・盤勢"
+  },
+  {
+   "text": "4 萬點能否收復，今日低點 37,837 是否守住",
+   "from": "Tango・盤勢"
+  },
+  {
+   "text": "外資賣超是否縮小，投信買超能否延續",
+   "from": "Tango・盤勢"
+  },
+  {
+   "text": "週末美股與費半是否止跌",
+   "from": "Mocha・國際"
+  },
+  {
+   "text": "營收創新高的 AI 供應鏈是否先止跌；MSCI 11/12 公布",
+   "from": "Onyx・產業"
+  }
+ ],
+ "sources": [
+  {
+   "t": "中央社｜台股崩跌寫多項紀錄",
+   "u": "https://www.cna.com.tw/news/afe/202611060172.aspx"
+  },
+  {
+   "t": "中央社｜國安基金宣布第10次進場護盤",
+   "u": "https://www.cna.com.tw/news/afe/202611060270.aspx"
+  },
+  {
+   "t": "工商時報｜11/6盤前",
+   "u": "https://www.ctee.com.tw/news/20261106700406-430201"
+  }
+ ]
+}

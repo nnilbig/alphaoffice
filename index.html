@@ -454,9 +454,10 @@ function openReport(k){
   if(!l.length){
     if(k==="tabby"){const q=SAYINGS[Number(todayStr().replace(/-/g,""))%SAYINGS.length];
       h+=`<p class="quote">「${esc(q)}」</p><p class="empty">Miso 每天 ${SCHED.tabby} 會依當天盤勢換一句。</p>`}
-    else h+=`<p class="empty">${dbState==="loading"?"報告讀取中…":dbState==="ok"?`${esc(c.name)} 還沒交過報告。每個交易日 ${SCHED[k]} 會送來第一份。`:"報告暫時讀不到。請確認已登入 Claude 後重新開啟這頁。"}</p>`;
+    else h+=`<p class="empty">${dbState==="loading"?"報告讀取中…":dbState==="ok"?`${esc(c.name)} 還沒交過報告。每個交易日 ${SCHED[k]} 會送來第一份。`:(window.claude?"報告暫時讀不到。請確認已登入 Claude 後重新開啟這頁。":"報告暫時讀不到，請稍後重新整理。")}</p>`;
     h+=askForm(k,c);reportEl.innerHTML=h;wire(c);setupAsk(k,c,{quote:h});return}
   const date=curDate[k]&&l.find(x=>x.date===curDate[k])?curDate[k]:l[0].date,r=l.find(x=>x.date===date);
+  if(r._stub){h+=`<div class="rmeta"><span>${esc(dateLabel(date))}</span></div><p class="empty">報告讀取中…</p>`;reportEl.innerHTML=h;wire(c);ensureFull(k,date);return}
   const opts=l.length>1?`<select id="dsel" aria-label="選擇日期">${l.map(x=>`<option value="${esc(x.date)}"${x.date===date?" selected":""}>${esc(dateLabel(x.date))}</option>`).join("")}</select>`:`<span>${esc(dateLabel(date))}</span>`;
   h+=`<div class="rmeta">${opts}${r.time?`<span class="chip">${esc(r.time)} 交稿</span>`:""}${r.closeTime?`<span class="chip">${esc(r.closeTime)} 收盤補充</span>`:""}</div>`;
   if(k==="tabby"){
@@ -493,10 +494,30 @@ async function setupAsk(k,c,r){
     catch(err){if(err&&err.code==="not_granted"){f.hidden=true}else ans.textContent=err&&err.code==="rate_limited"?"問太快了，稍等一下再問。":"這次沒有回應，請再按一次。"}
     finally{btn.disabled=false}}
 }
+/* data source: Claude page database when opened inside Claude, otherwise the repo's reports/ folder (GitHub Pages) */
+const docCache={};
+async function fetchDoc(agent,date){const key=date+"_"+agent;if(docCache[key])return docCache[key];
+  const r=await fetch(`reports/${date}/${agent}.json?t=${Date.now()}`);if(!r.ok)throw new Error("http "+r.status);const d=await r.json();docCache[key]=d;return d}
+async function ensureFull(k,date){const l=lst(k),i=l.findIndex(x=>x.date===date);if(i<0||!l[i]._stub)return;
+  try{l[i]=await fetchDoc(k,date)}catch(e){l[i]={...l[i],_stub:false,_err:true,summary:"這份報告暫時讀不到，請稍後重新整理。"}}
+  if(openK===k)openReport(k)}
+async function loadRepoIndex(){
+  const r=await fetch(`reports/index.json?t=${Date.now()}`);if(!r.ok)throw new Error("http "+r.status);
+  const idx=await r.json();const next={};
+  for(const e of idx.reports||[]){if(!e||!e.agent||!/^\d{4}-\d{2}-\d{2}$/.test(e.date||""))continue;
+    const cached=docCache[e.date+"_"+e.agent];const keepFresh=cached&&cached.time===e.time&&cached.closeTime===e.closeTime;
+    (next[e.agent]=next[e.agent]||[]).push(keepFresh?cached:{agent:e.agent,date:e.date,time:e.time,closeTime:e.closeTime,_stub:true})}
+  for(const k in next)next[k].sort((a,b)=>b.date.localeCompare(a.date));
+  byAgent=next;dbState="ok";refreshStatus();screens.forEach(drawScreen);if(openK)openReport(openK);
+}
 (async()=>{
   refreshStatus();
-  const db=window.claude?await window.claude.use("db"):null;
   const fail=()=>{dbState="offline";refreshStatus();if(openK)openReport(openK)};
+  if(!window.claude){
+    try{await loadRepoIndex()}catch(e){fail()}
+    setInterval(()=>{loadRepoIndex().catch(()=>{})},5*60*1000);
+    return}
+  const db=await window.claude.use("db");
   if(!db){fail();return}
   const timer=setTimeout(()=>{if(dbState==="loading")fail()},10000);
   db.collection("reports").orderBy("date","desc").limit(400).onSnapshot(snap=>{

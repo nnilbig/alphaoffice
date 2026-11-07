@@ -25,7 +25,12 @@
 
 ## 報告資料
 
-報告存在 Claude 頁面的資料庫，由排程任務每天寫入，所以只有在 Claude 上登入開啟才看得到報告與「問牠」功能。這個 repo 的 `index.html` 單獨開啟時只會顯示辦公室與成員，報告區會顯示讀不到。
+報告存在這個 repo 的 `reports/` 資料夾，由排程任務每個交易日寫入並 push：
+
+- `reports/index.json`：所有報告的清單（agent、date、time、closeTime）
+- `reports/YYYY-MM-DD/<agent>.json`：單份報告（agent：brown、black、orange、white、tabby）
+
+網頁用 GitHub Pages 開啟時直接讀這些檔案，不需要登入。若在 Claude 裡開啟，則讀 Claude 頁面的資料庫，並可使用「問牠」。
 
 ## 操作
 
