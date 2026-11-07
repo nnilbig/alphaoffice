@@ -234,7 +234,15 @@ function plane(w,h,material,x,y,z,ry=0,parent=scene){const m=new THREE.Mesh(new 
 
 /* ---------- floor ---------- */
 const W=18,D=14,H=3.2;
-const wood=ctex(64,64,(t)=>{t.fillStyle="#c8955c";t.fillRect(0,0,64,64);for(let y=0;y<64;y+=8){t.fillStyle="#ad7a46";t.fillRect(0,y,64,1);t.fillStyle="#d3a26a";t.fillRect(0,y+1,64,1);const s=(y*7)%40+8;t.fillStyle="#ad7a46";t.fillRect(s,y,1,8);t.fillRect((s+30)%64,y,1,8)}});
+const wood=ctex(64,64,(t)=>{
+  let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+  t.fillStyle="#e8e5df";t.fillRect(0,0,64,64);
+  for(let n=0;n<420;n++){t.fillStyle=rnd()<0.5?"#efece7":"#dfdbd4";t.fillRect((rnd()*64)|0,(rnd()*64)|0,1,1)}
+  for(let v=0;v<5;v++){let x=rnd()*64,y=rnd()*64;const dx=rnd()*1.6-0.8,dark=v%2?"#b9b4ad":"#c8c3bc";
+    for(let k=0;k<60;k++){t.fillStyle=dark;t.fillRect(((x%64)+64)%64|0,((y%64)+64)%64|0,1,1);x+=1+dx*rnd();y+=(rnd()-0.5)*1.4+dx*0.6;if(rnd()<0.12){t.fillStyle="#d3cec7";t.fillRect(((x%64)+64)%64|0,((y+1)%64+64)%64|0,1,1)}}}
+  t.fillStyle="#cfcac3";t.fillRect(0,0,64,1);t.fillRect(0,32,64,1);t.fillRect(0,0,1,64);t.fillRect(32,0,1,64);
+  t.fillStyle="#f6f4f0";t.fillRect(0,1,64,1);t.fillRect(0,33,64,1);t.fillRect(1,0,1,64);t.fillRect(33,0,1,64);
+});
 wood.wrapS=wood.wrapT=THREE.RepeatWrapping;wood.repeat.set(W/4,D/4);
 const floor=new THREE.Mesh(new THREE.BoxGeometry(W,0.3,D),new THREE.MeshLambertMaterial({map:wood}));floor.position.set(W/2,-0.15,D/2);floor.receiveShadow=true;scene.add(floor);
 /* meeting carpet */
@@ -298,7 +306,7 @@ const SCHEMES={
   blue:{bg:"#0f1a33",dots:["#4f9cf0","#9ed0ff","#ffd23f"],glow:"#4f9cf0"},
   off:{bg:"#1b2130",dots:null}
 };
-function desk(x,z,scheme,agent){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);
+function desk(x,z,scheme,agent,flip){const g=new THREE.Group();if(flip){g.position.set(x+3,0,z+1.2);g.rotation.y=Math.PI}else g.position.set(x,0,z);scene.add(g);
   const w=3,d=1.2;for(const [a,b] of [[0,0],[w-0.1,0],[0,d-0.1],[w-0.1,d-0.1]])box(0.1,0.72,0.1,"#9aa3b0",a,0,b,g);
   box(w,0.08,d,"#f1f3f6",0,0.72,0,g);
   const mw=(w-0.6)/2;
@@ -311,8 +319,9 @@ function desk(x,z,scheme,agent){const g=new THREE.Group();g.position.set(x,0,z);
   box(1.1,0.03,0.32,"#3a4152",w/2-0.55,0.8,d-0.5,g);
   return g}
 const COLS=[1,4.6,8.2];
-COLS.forEach(c=>desk(c,7.2,SCHEMES.off));
-desk(COLS[0],10.6,SCHEMES.yellow,"brown");desk(COLS[1],10.6,SCHEMES.red,"black");desk(COLS[2],10.6,SCHEMES.blue,"orange");
+/* two rows pushed together: back row faces away, monitors back to back */
+desk(COLS[0],9.4,SCHEMES.off,null,true);desk(COLS[1],9.4,SCHEMES.red,"black",true);desk(COLS[2],9.4,SCHEMES.off,null,true);
+desk(COLS[0],10.6,SCHEMES.yellow,"brown");desk(COLS[1],10.6,SCHEMES.off);desk(COLS[2],10.6,SCHEMES.blue,"orange");
 plant(0.6,6.7);plant(0.7,13.4,1.1);plant(7.6,0.6,1.1);plant(17.5,0.6,0.9);plant(17.5,11.5,0.9);
 
 /* server rack */
@@ -376,7 +385,7 @@ function makeCat(c,opt={}){
   return root}
 function placeCat(key,c,x,z,ry,opt={}){const cat=makeCat(c,opt);cat.scale.setScalar(1.45);cat.position.set(x,0,z);cat.rotation.y=ry;cat.userData.key=key;scene.add(cat);cats.push(cat);return cat}
 placeCat("brown",CREW.brown,COLS[0]+2.4,12.5,Math.PI/4,{kind:"work"});
-placeCat("black",CREW.black,COLS[1]+2.4,12.5,Math.PI/4,{kind:"work"});
+placeCat("black",CREW.black,COLS[1]+1.5,8.75,0.25,{kind:"work"});
 placeCat("orange",CREW.orange,COLS[2]+2.4,12.5,Math.PI/4,{kind:"work"});
 placeCat("tabby",CREW.tabby,15.6,12.2,Math.PI/4,{kind:"tea",mug:true});
 {const g=placeCat("gray",CREW.gray,17.15,3.0,Math.PI/4-0.25,{kind:"read"});const u=g.userData;
