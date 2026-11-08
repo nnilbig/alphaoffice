@@ -1,0 +1,109 @@
+{
+ "agent": "brown",
+ "date": "2026-11-09",
+ "time": "07:37",
+ "summary": "上週五（11/6）費半反彈 4.21%、台積電 ADR 漲 6.33%，晶片股連五跌後止跌；但美國 10 月非農新增 16.5 萬人遠超預期，市場押注 12 月升息機率升至 78%，明晚（11/10）21:30 的美國 10 月 CPI 是本週最大變數。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "51,285.73",
+   "chg": "−237.33（−0.46%）",
+   "dir": "down"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,376.86",
+   "chg": "+23.13（+0.31%）",
+   "dir": "up"
+  },
+  {
+   "label": "那斯達克",
+   "value": "24,579.43",
+   "chg": "+264.43（+1.09%）",
+   "dir": "up"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "9,390.25",
+   "chg": "+379.11（+4.21%）",
+   "dir": "up"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "375.44 美元",
+   "chg": "+22.34（+6.33%）",
+   "dir": "up"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "4.87%",
+   "chg": "+3 bp",
+   "dir": "up"
+  },
+  {
+   "label": "新台幣（11/6）",
+   "value": "32.768",
+   "chg": "升值 1.08 角",
+   "dir": "up"
+  },
+  {
+   "label": "COMEX 黃金（12月）",
+   "value": "4,074.9 美元",
+   "chg": "−38.6（−0.9%）",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/6 美股分歧：費半 +4.21%、那指 +1.09%，道瓊 −0.46%；AMD +11%、英特爾 +7.71%、美光 +5.12%、輝達 +2.78%。",
+   "11/5 美股創 2025 年 4 月以來最大單日跌幅，那指跌 5.5% 進入修正，七巨頭單日蒸發約 1 兆美元。",
+   "美國 10 月非農新增 16.5 萬人（預期 6.5 萬），失業率降至 4.1%，時薪年增 3.1%。",
+   "美債 2 年期升 6 bp 至 4.52%、10 年期升 3 bp 至 4.87%；美元指數漲 0.7%，金價跌 0.9%。",
+   "期中選舉民主黨大勝，市場擔憂 AI 監管與資料中心建設放緩；金管會限空等措施 11/9 起實施。"
+  ],
+  "today": [
+   "09:30 中國 10 月 CPI、PPI。",
+   "23:00 美國 9 月批發銷售與庫存。",
+   "G7 外長會議 11/9–11/10 於巴黎舉行。",
+   "美股盤後：Rocket Lab、Take-Two、Trump Media 公布財報（台灣 11/10 清晨）。"
+  ],
+  "next": [
+   "07:50 日銀公布 10 月會議意見摘要；13:30 台積電公布 10 月營收。",
+   "17:00 聯準會理事 Waller 談話。",
+   "21:30 美國 10 月 CPI 與核心 CPI。",
+   "美俄烏三方會談 11/10–11/11 於阿布達比舉行。",
+   "美股盤後 CoreWeave 公布第三季財報（台灣 11/11 清晨）。"
+  ]
+ },
+ "sources": [
+  {
+   "t": "新頭殼｜美股道瓊續跌237點、費半漲4.21% 台積電ADR漲6.33%",
+   "u": "https://newtalk.tw/news/view/2026-11-07/1069794"
+  },
+  {
+   "t": "Yahoo Finance｜Strong October jobs report sends yields higher",
+   "u": "https://finance.yahoo.com/economy/policy/articles/strong-october-jobs-report-sends-134858909.html"
+  },
+  {
+   "t": "MoneyDJ｜《貴金屬》美元指數上漲 COMEX黃金下跌0.9%",
+   "u": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=c3aa1727-16a8-4fca-9b9b-8b7f4288aeb4"
+  },
+  {
+   "t": "中央社｜新台幣由貶轉升 勁揚1.08角收32.768元",
+   "u": "https://www.cna.com.tw/news/afe/202611060195.aspx"
+  },
+  {
+   "t": "TradingKey｜一週前瞻：10月CPI與PPI來襲",
+   "u": "https://tradingkey.com/zh-hant/analysis/stocks/us-stock/262294760-week-ahead-october-cpi-ppi-coreweave-cisco-applied-materials-tradingkey"
+  },
+  {
+   "t": "金融界｜下周大事提醒：中美CPI、俄美烏會談",
+   "u": "https://stock.jrj.com.cn/2026/11/08181459063441.shtml"
+  }
+ ]
+}
