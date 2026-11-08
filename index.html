@@ -35,7 +35,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:
 .title{pointer-events:auto;display:flex;gap:10px;align-items:center;background:rgba(20,22,32,.86);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
 .title b{color:var(--gold);font-size:15px}
 .title span{color:var(--muted);font-size:12px;font-family:var(--f-mono)}
-.logo canvas{width:28px;height:28px;image-rendering:pixelated;border-radius:6px;display:block}
+.logo img{width:28px;height:28px;border-radius:6px;display:block}
 .title{padding:5px 12px 5px 6px}
 .tools{position:absolute;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px}
 .tools button{font:500 12px var(--f-body);color:var(--text);background:rgba(20,22,32,.86);border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer}
@@ -403,9 +403,7 @@ ring.rotation.x=-Math.PI/2;ring.position.y=0.05;ring.visible=false;scene.add(rin
 const rings=[];for(let i=0;i<4;i++){const r=ring.clone();r.material=ring.material;rings.push(r);scene.add(r)}
 
 /* ---------- logo + favicon (gray cat) ---------- */
-{const lg=avatar(CREW.gray,"#2a2e40");document.getElementById("logo").appendChild(lg);
-  try{const f=document.createElement("canvas");f.width=64;f.height=64;const t=f.getContext("2d");t.imageSmoothingEnabled=false;t.drawImage(avatar(CREW.gray,"#2a2e40"),0,0,64,64);
-    const link=document.createElement("link");link.rel="icon";link.href=f.toDataURL("image/png");document.head.appendChild(link)}catch(e){}}
+{const im=new Image();im.src="icon.png";im.alt="";document.getElementById("logo").appendChild(im)}
 /* ---------- panel ---------- */
 const crewEl=document.getElementById("crew"),detail=document.getElementById("detail");
 const ORDER=["brown","black","orange","white","tabby","gray"];
