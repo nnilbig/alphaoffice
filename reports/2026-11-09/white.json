@@ -1,0 +1,50 @@
+{
+ "agent": "white",
+ "date": "2026-11-09",
+ "time": "08:21",
+ "summary": "上週五台股重挫 1,873 點、外資連 7 賣，但美股費半反彈 4.21%、台積電 ADR 漲 6.33%，夜盤台指期重回 4 萬點；今天起法說會密集，明晚美國 10 月 CPI 是本週最大變數。",
+ "obs": [
+  {
+   "text": "美國 10 月 CPI 明晚（11/10）21:30 公布；非農遠超預期後，市場押注 12 月升息機率升至 78%。",
+   "from": "Mocha・國際"
+  },
+  {
+   "text": "夜盤台指期收 40,298、漲 646 點，但外資台指期淨空單增至 99,930 口，籌碼面仍偏空。",
+   "from": "Tango・盤勢"
+  },
+  {
+   "text": "參考點位：加權 11/6 收 39,701.64、盤中低點 37,837.05；VIX 升至 46.52。",
+   "from": "Tango・盤勢"
+  },
+  {
+   "text": "10 月營收：智邦年增 91.2%、研華年增 88.42%，奇鋐連 3 個月新高；台積電 10 月營收明天 13:30 公布。",
+   "from": "Onyx・產業"
+  },
+  {
+   "text": "國安基金第 10 度進場、金管會限空措施今天起實施；今日富邦金、南亞、玉山金等法說，留意對美國政策與訂單的說法。",
+   "from": "Onyx・產業"
+  }
+ ],
+ "sources": [
+  {
+   "t": "新頭殼｜美股道瓊續跌237點、費半漲4.21% 台積電ADR漲6.33%",
+   "u": "https://newtalk.tw/news/view/2026-11-07/1069794"
+  },
+  {
+   "t": "Yahoo Finance｜Strong October jobs report sends yields higher",
+   "u": "https://finance.yahoo.com/economy/policy/articles/strong-october-jobs-report-sends-134858909.html"
+  },
+  {
+   "t": "經濟日報｜外資台指期淨空單逼近10萬口",
+   "u": "https://money.udn.com/money/story/11112/9862453"
+  },
+  {
+   "t": "工商時報｜台指期夜盤 站回4萬點",
+   "u": "https://www.ctee.com.tw/news/20261109700224-439901"
+  },
+  {
+   "t": "經濟日報｜11月9日五件財經大事",
+   "u": "https://money.udn.com/money/story/5607/9865852"
+  }
+ ]
+}
