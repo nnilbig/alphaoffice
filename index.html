@@ -121,6 +121,11 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 .obs li::before{content:counter(o);width:22px;height:22px;border-radius:6px;background:#2a3550;color:#9ec7ff;font:700 12px var(--f-mono);display:grid;place-items:center}
 .obs small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
 .quote{margin:0;padding:16px;border-radius:10px;background:linear-gradient(180deg,#262138,#1f1b2e);border:1px solid #3a3058;font-size:16px;line-height:1.7;color:#efe6ff}
+.disc{display:grid;gap:10px;margin-bottom:6px}
+.rules{font-size:13px;color:var(--muted)}
+.rules summary{cursor:pointer;padding:4px 0}
+.rules summary:focus-visible{outline:2px solid var(--gold)}
+.rules .rlist{margin-top:6px}
 .rsrc{font-size:12px;color:var(--muted)}.rsrc a{color:#9aa6c0}
 .rsrc ul{margin:4px 0 0;padding-left:1.2em;display:grid;gap:2px}
 .ask{display:grid;gap:6px;border-top:1px dashed var(--line);padding-top:12px}
@@ -189,7 +194,7 @@ const CREW={
     fur:"#e8913a",furL:"#f6c58a",stripe:"#c96a1e",eye:"#5aa0e8",shirt:"#3a9a5a",acc:"#ffffff",pants:"#3a3a48"},
   tabby:{name:"Miso",role:"斑紋貓・情緒價值與交易修心",detail:"待在茶水間，提供情緒價值與交易修心策略：停損紀律、等待、穩住心態。",col:"#c9a9ff",
     fur:"#a39a8a",furL:"#d8d0c0",stripe:"#5f574a",eye:"#8fd06a",shirt:"#e9e2d0",acc:"#c25a4f",pants:"#6b4630"},
-  gray:{name:"Earl",role:"灰貓・主管",detail:"主管室裡看書，順便看看今天誰交稿了。",col:"#c9cdd6",
+  gray:{name:"Earl",role:"灰貓・主管",detail:"主管室裡看書；每個交易日 08:30 依近期盤面提出盤前紀律提醒，也看看今天誰交稿了。",col:"#c9cdd6",
     fur:"#8a8f98",furL:"#b9bec6",eye:"#f0b84a",shirt:"#2b3550",acc:"#c25a4f",pants:"#2a2a33"},
   white:{name:"Snow",role:"白貓・會議：今日重點觀察",detail:"四隻白貓在會議室，彙整三位同事的資料，討論今日重點觀察。",col:"#9ec7ff",
     fur:"#f6f3ee",furL:"#ffffff",eye:"#5ab0f0",shirt:"#4f7cc4",acc:"#ffffff",pants:"#2f3a55"}
@@ -428,7 +433,7 @@ function highlight(k,fly){selected=k;Object.entries(memberBtns).forEach(([kk,b])
 function select(k,fly){highlight(k,fly);openReport(k)}
 
 /* ---------- reports (from the page database) ---------- */
-const SCHED={brown:"07:30",black:"07:45",orange:"08:00",white:"08:20",tabby:"08:20"};
+const SCHED={brown:"07:30",black:"07:45",orange:"08:00",white:"08:20",tabby:"08:20",gray:"08:30"};
 const SAYINGS=["停損不是認輸，是把明天的子彈留下來。","計畫裡寫多少，手就停在多少。","看不懂的時候，不做也是一種做。","等待不是浪費時間，是在練心。","今天賺的可能是運氣，守住紀律的才是本事。","心亂的時候，先把桌子擦乾淨。","盤面吵的時候，聲音最小的那個是你自己。"];
 const curDate={};
 const WD="日一二三四五六";
@@ -443,7 +448,7 @@ const samplePromise=window.claude?window.claude.use("sample"):Promise.resolve(nu
 let curTab="today",openK=null;
 function refreshStatus(){
   for(const k of ORDER){const el=document.getElementById("st-"+k);if(!el)continue;
-    if(k==="gray"){el.textContent="主管室・看書中";el.className="st wait";continue}
+    if(k==="gray"){if(dbState==="ok"&&submittedToday("gray")){el.textContent=`今日 ${lst("gray")[0].time||""} 盤前提醒`;el.className="st ok"}else{el.textContent=isWeekend()?"主管室・看書中":`今日預計 ${SCHED.gray} 盤前提醒`;el.className="st wait"}continue}
     if(dbState!=="ok"){el.textContent=dbState==="loading"?"讀取中…":"離線";el.className="st wait";continue}
     const l=lst(k);if(submittedToday(k)){el.textContent=`今日 ${l[0].time||""} 已交`;el.className="st ok"}
     else{el.textContent=isWeekend()?"週末休市":`今日預計 ${SCHED[k]}`;el.className="st wait"}}
@@ -456,6 +461,10 @@ function openReport(k){
   const wasOpen=!modal.hidden&&openK===k;if(modal.hidden)lastFocus=document.activeElement;openK=k;const c=CREW[k];modal.hidden=false;sheet.setAttribute("aria-label",c.name+" 的報告");reportEl.style.setProperty("--acc",c.col);if(!wasOpen)sheet.scrollTop=0;requestAnimationFrame(()=>{const b=document.getElementById("back");if(b&&!sheet.contains(document.activeElement))b.focus()})
   let h=head(c);
   if(k==="gray"){
+    const gl=lst("gray"),g=gl[0];
+    if(g&&g._stub){h+=`<p class="empty">盤前提醒讀取中…</p>`;reportEl.innerHTML=h;wire(c);ensureFull("gray",g.date);return}
+    if(g&&!g._err){h+=`<div class="disc"><div class="rmeta"><span>${esc(dateLabel(g.date))}・盤前提醒</span>${g.time?`<span class="chip">${esc(g.time)}</span>`:""}</div>${g.summary?`<p class="rsum">${esc(g.summary)}</p>`:""}${(g.focus||[]).length?`<ol class="obs">${g.focus.map(o=>`<li><div>${esc(o.rule)}${o.why?`<small>${esc(o.why)}</small>`:""}</div></li>`).join("")}</ol>`:""}${g.template?`<p class="rsum">${esc(g.template)}</p>`:""}${(g.rules||[]).length?`<details class="rules"><summary>完整紀律清單（${g.rules.length} 條）</summary><ul class="rlist">${g.rules.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}${(g.sources||[]).length?`<div class="rsrc">資料來源<ul>${g.sources.map(x=>{const u=safeUrl(x.u);return `<li>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`:esc(x.t)}</li>`}).join("")}</ul></div>`:""}</div>`}
+    else h+=`<p class="empty">Earl 每個交易日 ${SCHED.gray} 會依近期盤面，提醒今天最該守住的紀律。</p>`;
     h+=`<div class="rmeta"><span>${esc(dateLabel(todayStr()))}・今日交稿狀態${isWeekend()?"（週末休市）":""}</span></div><ul class="check">${["brown","black","orange","white","tabby"].map(a=>{const ok=submittedToday(a),cc=CREW[a];return `<li><i style="color:${ok?"#3fd17f":"#6b7282"}">${ok?"✓":"·"}</i><span style="color:${cc.col}">${esc(cc.name)}</span><span class="tm">${ok?esc(lst(a)[0].time||"")+" 已交":isWeekend()?"休市":"預計 "+SCHED[a]}</span></li>`}).join("")}</ul>
     <p class="empty">Earl 在主管室看書。點其他貓咪，可以打開牠們的報告。</p>`;
     reportEl.innerHTML=h;wire(c);return}
