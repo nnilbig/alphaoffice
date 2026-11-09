@@ -20,10 +20,10 @@
 | 路徑 | 內容 |
 | --- | --- |
 | `index.html` | 整個網頁（單檔，three.js 0.160.0 從 jsDelivr 載入） |
-| `icon.png` | 方塊風灰貓 Earl 圖示（logo、分頁、手機主畫面） |
+| `icon.png` | 方塊風灰貓 Soba 圖示（logo、分頁、手機主畫面） |
 | `reports/index.json` | 所有報告清單：`{updated, reports:[{agent,date,time,closeTime?}]}` |
 | `reports/YYYY-MM-DD/<agent>.json` | 單份報告 |
-| `rules.json` | nn 的交易紀律清單，Earl 的盤前提醒從這裡挑；要改紀律就改這個檔 |
+| `rules.json` | nn 的交易紀律清單，Soba 的盤前提醒從這裡挑；要改紀律就改這個檔 |
 | `prompts/*.md` | 6 個排程任務的完整指令與 ID |
 | `README.md` | 對外說明 |
 
@@ -43,12 +43,12 @@
 
 | agent key | 名字 | 職位 | 交稿 | 螢幕 |
 | --- | --- | --- | --- | --- |
-| `brown` | Mocha 棕貓 | 國際事件與數據 | 07:30 | 黃白 |
-| `black` | Onyx 黑貓 | 產業數據（坐對面那排） | 07:45 | 紅黑 |
-| `orange` | Tango 橘貓 | 盤勢數據 | 08:00，14:00 收盤補充 | 藍黃 |
-| `white` | Snow 白貓 ×4 | 會議室：今日重點觀察 | 08:20 | 會議室電視 |
+| `brown` | Hojicha 棕貓 | 國際事件與數據 | 07:30 | 黃白 |
+| `black` | Nori 黑貓 | 產業數據（坐對面那排） | 07:45 | 紅黑 |
+| `orange` | Mikan 橘貓 | 盤勢數據 | 08:00，14:00 收盤補充 | 藍黃 |
+| `white` | Mochi 白貓 ×4 | 會議室：今日重點觀察 | 08:20 | 會議室電視 |
 | `tabby` | Miso 斑紋貓 | 茶水間：情緒價值・交易修心 | 08:20（與白貓同一輪） | — |
-| `gray` | Earl 灰貓 | 主管：依近期盤面挑出 nn 今天最該守的紀律（讀 `rules.json`）；點牠也看交稿狀態 | 08:30 | — |
+| `gray` | Soba 灰貓 | 主管：依近期盤面挑出 nn 今天最該守的紀律（讀 `rules.json`）；點牠也看交稿狀態 | 08:30 | — |
 
 還沒交稿的貓螢幕是暗的；名單顯示「今日 HH:MM 已交」「今日預計 HH:MM」或「週末休市」。
 
@@ -64,16 +64,16 @@
  "cols": ["項目", "數值", "變化"],
  "kpis": [{"label": "", "value": "", "chg": "", "dir": "up|down|flat"}],
  "days": {"prev": [], "today": [], "next": []},
- "obs": [{"text": "", "from": "Tango・盤勢"}],
+ "obs": [{"text": "", "from": "Mikan・盤勢"}],
  "quote": "",
  "tips": [],
  "sources": [{"t": "媒體｜標題", "u": "https://"}]
 }
 ```
 
-- 情報員用 `summary cols kpis days sources`；白貓用 `summary obs sources`；Miso 用 `quote tips`；Earl 用 `summary focus[{rule,why}] template rules sources`。
+- 情報員用 `summary cols kpis days sources`；白貓用 `summary obs sources`；Miso 用 `quote tips`；Soba 用 `summary focus[{rule,why}] template rules sources`。
 - `dir`：`up` 紅、`down` 綠（台股慣例）。
-- `closeTime` 只有 Tango 的 14:00 補充會寫。
+- `closeTime` 只有 Mikan 的 14:00 補充會寫。
 
 ## 排程任務
 
@@ -81,12 +81,12 @@
 
 | 時間 | 任務名稱 | ID |
 | --- | --- | --- |
-| 07:30 | 西區交易室｜Mocha 國際 | `trig_01DWZkRWLbsrbURm5taTQtDo` |
-| 07:45 | 西區交易室｜Onyx 產業 | `trig_01Q8BDU5d3dQZfoDw8qYQgma` |
-| 08:00 | 西區交易室｜Tango 盤前 | `trig_01DSq6JWRnRokEYA7C1uUCpX` |
+| 07:30 | 西區交易室｜Hojicha 國際 | `trig_01DWZkRWLbsrbURm5taTQtDo` |
+| 07:45 | 西區交易室｜Nori 產業 | `trig_01Q8BDU5d3dQZfoDw8qYQgma` |
+| 08:00 | 西區交易室｜Mikan 盤前 | `trig_01DSq6JWRnRokEYA7C1uUCpX` |
 | 08:20 | 西區交易室｜白貓會議＋Miso | `trig_014PAZxbZo4ygScB7dFTruQt` |
-| 08:30 | 西區交易室｜Earl 盤前提醒（推播到手機） | `trig_01BhwFrSgUcf1rvjHPz9TuqS` |
-| 14:00 | 西區交易室｜Tango 收盤補充 | `trig_01Dw5euFeLTyCFPaCBMWkUoZ` |
+| 08:30 | 西區交易室｜Soba 盤前提醒（推播到手機） | `trig_01BhwFrSgUcf1rvjHPz9TuqS` |
+| 14:00 | 西區交易室｜Mikan 收盤補充 | `trig_01Dw5euFeLTyCFPaCBMWkUoZ` |
 
 改指令時，用 `update_trigger` 改 prompt，並同步更新 `prompts/` 對應檔案。
 

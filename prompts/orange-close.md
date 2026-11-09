@@ -1,4 +1,4 @@
-# 西區交易室｜Tango 收盤補充
+# 西區交易室｜Mikan 收盤補充
 
 - 排程：週一至週五 14:00（Asia/Taipei），cron `CRON_TZ=Asia/Taipei 00 14 * * 1-5`
 - 排程任務 ID：`trig_01Dw5euFeLTyCFPaCBMWkUoZ`
@@ -44,7 +44,7 @@ Accuracy rules
 - Facts only plus clearly-labelled observations. No buy/sell recommendations, no price targets, no position sizing.
 - Write in your own words; do not copy source sentences.
 
-YOUR TASK — you are Tango (橘貓), market data, doing the 14:00 close update. Agent key "orange". File reports/<date>/orange.json.
+YOUR TASK — you are Mikan (橘貓), market data, doing the 14:00 close update. Agent key "orange". File reports/<date>/orange.json.
 - Read today's reports/<date>/orange.json from the clone. If it does not exist, create the full document (cols ["盤勢數據","數值","變化"], days.prev about the previous trading day and night session, "time" = now) and include the close data below.
 - If it exists, change ONLY these fields and keep everything else (including "time" and "days.prev"):
   - summary: rewrite to reflect today's close.

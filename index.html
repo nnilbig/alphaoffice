@@ -186,17 +186,17 @@ const stage=document.getElementById("stage"),canvas=document.getElementById("gl"
 
 /* ---------- crew data ---------- */
 const CREW={
-  brown:{name:"Mocha",role:"棕貓・國際事件與數據",detail:"整理前一日、今日、明日的國際事件與數據：美股、費半、匯率、國際行事曆。",col:"#3ad7ff",
+  brown:{name:"Hojicha",role:"棕貓・國際事件與數據",detail:"整理前一日、今日、明日的國際事件與數據：美股、費半、匯率、國際行事曆。",col:"#3ad7ff",
     fur:"#9a6a42",furL:"#c79a72",eye:"#7fd0a0",shirt:"#2f6fb0",acc:"#ffffff",pants:"#2f3a55"},
-  black:{name:"Onyx",role:"黑貓・產業數據",detail:"整理前一日、今日、明日的產業數據：月營收、法說會、族群消息。",col:"#ffb43a",
+  black:{name:"Nori",role:"黑貓・產業數據",detail:"整理前一日、今日、明日的產業數據：月營收、法說會、族群消息。",col:"#ffb43a",
     fur:"#34323f",furL:"#57556a",eye:"#ffe14a",shirt:"#c98a2a",acc:"#fff2c8",pants:"#2f2a3d"},
-  orange:{name:"Tango",role:"橘貓・盤勢數據",detail:"整理前一日、今日、明日的盤勢數據：夜盤、三大法人、成交量、匯率。",col:"#3fd17f",
+  orange:{name:"Mikan",role:"橘貓・盤勢數據",detail:"整理前一日、今日、明日的盤勢數據：夜盤、三大法人、成交量、匯率。",col:"#3fd17f",
     fur:"#e8913a",furL:"#f6c58a",stripe:"#c96a1e",eye:"#5aa0e8",shirt:"#3a9a5a",acc:"#ffffff",pants:"#3a3a48"},
   tabby:{name:"Miso",role:"斑紋貓・情緒價值與交易修心",detail:"待在茶水間，提供情緒價值與交易修心策略：停損紀律、等待、穩住心態。",col:"#c9a9ff",
     fur:"#a39a8a",furL:"#d8d0c0",stripe:"#5f574a",eye:"#8fd06a",shirt:"#e9e2d0",acc:"#c25a4f",pants:"#6b4630"},
-  gray:{name:"Earl",role:"灰貓・主管",detail:"主管室裡看書；每個交易日 08:30 依近期盤面提出盤前紀律提醒，也看看今天誰交稿了。",col:"#c9cdd6",
+  gray:{name:"Soba",role:"灰貓・主管",detail:"主管室裡看書；每個交易日 08:30 依近期盤面提出盤前紀律提醒，也看看今天誰交稿了。",col:"#c9cdd6",
     fur:"#8a8f98",furL:"#b9bec6",eye:"#f0b84a",shirt:"#2b3550",acc:"#c25a4f",pants:"#2a2a33"},
-  white:{name:"Snow",role:"白貓・會議：今日重點觀察",detail:"四隻白貓在會議室，彙整三位同事的資料，討論今日重點觀察。",col:"#9ec7ff",
+  white:{name:"Mochi",role:"白貓・會議：今日重點觀察",detail:"四隻白貓在會議室，彙整三位同事的資料，討論今日重點觀察。",col:"#9ec7ff",
     fur:"#f6f3ee",furL:"#ffffff",eye:"#5ab0f0",shirt:"#4f7cc4",acc:"#ffffff",pants:"#2f3a55"}
 };
 const WHITE_SHIRTS=[["#4f7cc4","#5ab0f0"],["#c25a7a","#f0b84a"],["#5a5a6a","#7fd0a0"],["#3a9a8a","#b07bff"]];
@@ -464,9 +464,9 @@ function openReport(k){
     const gl=lst("gray"),g=gl[0];
     if(g&&g._stub){h+=`<p class="empty">盤前提醒讀取中…</p>`;reportEl.innerHTML=h;wire(c);ensureFull("gray",g.date);return}
     if(g&&!g._err){h+=`<div class="disc"><div class="rmeta"><span>${esc(dateLabel(g.date))}・盤前提醒</span>${g.time?`<span class="chip">${esc(g.time)}</span>`:""}</div>${g.summary?`<p class="rsum">${esc(g.summary)}</p>`:""}${(g.focus||[]).length?`<ol class="obs">${g.focus.map(o=>`<li><div>${esc(o.rule)}${o.why?`<small>${esc(o.why)}</small>`:""}</div></li>`).join("")}</ol>`:""}${g.template?`<p class="rsum">${esc(g.template)}</p>`:""}${(g.rules||[]).length?`<details class="rules"><summary>完整紀律清單（${g.rules.length} 條）</summary><ul class="rlist">${g.rules.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}${(g.sources||[]).length?`<div class="rsrc">資料來源<ul>${g.sources.map(x=>{const u=safeUrl(x.u);return `<li>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`:esc(x.t)}</li>`}).join("")}</ul></div>`:""}</div>`}
-    else h+=`<p class="empty">Earl 每個交易日 ${SCHED.gray} 會依近期盤面，提醒今天最該守住的紀律。</p>`;
+    else h+=`<p class="empty">Soba 每個交易日 ${SCHED.gray} 會依近期盤面，提醒今天最該守住的紀律。</p>`;
     h+=`<div class="rmeta"><span>${esc(dateLabel(todayStr()))}・今日交稿狀態${isWeekend()?"（週末休市）":""}</span></div><ul class="check">${["brown","black","orange","white","tabby"].map(a=>{const ok=submittedToday(a),cc=CREW[a];return `<li><i style="color:${ok?"#3fd17f":"#6b7282"}">${ok?"✓":"·"}</i><span style="color:${cc.col}">${esc(cc.name)}</span><span class="tm">${ok?esc(lst(a)[0].time||"")+" 已交":isWeekend()?"休市":"預計 "+SCHED[a]}</span></li>`}).join("")}</ul>
-    <p class="empty">Earl 在主管室看書。點其他貓咪，可以打開牠們的報告。</p>`;
+    <p class="empty">Soba 在主管室看書。點其他貓咪，可以打開牠們的報告。</p>`;
     reportEl.innerHTML=h;wire(c);return}
   const l=lst(k);
   if(!l.length){
