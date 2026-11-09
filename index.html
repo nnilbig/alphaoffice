@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0}
+*,*::before,*::after{box-sizing:border-box}body{margin:0}
 /* Layout: isometric 3D office stage on the left, Slack-like crew panel on the right; stacks on phones. Single committed dark look. */
 :root{
   --bg:#141722;
@@ -79,8 +78,19 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 .msg p{margin:2px 0 0;font-size:13px;color:#d7dbe4;line-height:1.55}
 .sys{justify-self:center;font-size:12px;color:#9ec7ff;background:#1c2433;border:1px solid #2f4366;border-radius:999px;padding:4px 12px}
 
-.report{flex:1;overflow:auto;min-height:0;padding:14px 16px 20px;display:grid;gap:14px;align-content:start}
-.rhead{display:grid;grid-template-columns:auto 44px 1fr;gap:10px;align-items:center}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(6,8,14,.62);display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{width:min(920px,100%);max-height:100%;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.report{padding:20px 24px 24px;display:grid;gap:16px;align-content:start;min-width:0}
+.rhead{position:sticky;top:-20px;z-index:1;margin:-20px -24px 0;padding:16px 24px 12px;background:var(--panel);border-bottom:1px solid var(--line)}
+.close{all:unset;cursor:pointer;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);color:var(--muted);font-size:18px;line-height:1}
+.close:hover{color:var(--text)}.close:focus-visible{outline:2px solid var(--gold)}
+.rtop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.days3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.day h4{margin:0 0 8px;font-size:13px;letter-spacing:.06em;color:var(--acc,#ffd23f)}
+.day .none{margin:0;color:var(--muted);font-size:13px}
+@media (max-width:760px){.rtop,.days3{grid-template-columns:1fr}.report{padding:16px 16px 20px}.rhead{margin:-16px -16px 0;padding:14px 16px 10px;top:-16px}}
+.rhead{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center}
 .back{all:unset;cursor:pointer;font-size:13px;color:var(--muted);padding:6px 8px;border-radius:6px;border:1px solid var(--line)}
 .back:hover{color:var(--text)}.back:focus-visible{outline:2px solid var(--gold)}
 .rhead canvas{width:44px;height:44px;image-rendering:pixelated;border-radius:8px}
@@ -127,15 +137,13 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
 @media (max-width:860px){
   body{overflow:auto}
   .app{grid-template-columns:1fr;grid-template-rows:56vh auto;height:auto}
-  .report{overflow:visible}
   aside{border-left:0;border-top:1px solid var(--line)}
   .feed{max-height:none}
   .hint{display:none}
 }
-@media (max-width:860px){.sec,.chan,.feed,.report{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+@media (max-width:860px){.sec,.chan,.feed{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 </style>
-</head>
-<body>
+
 <div class="app">
   <div class="stage" id="stage">
     <canvas id="gl" aria-label="西區交易室 3D 等角辦公室：辦公區六個座位、會議室、主管室與茶水間，點選貓咪可查看分工"></canvas>
@@ -152,9 +160,10 @@ aside{background:var(--panel);border-left:1px solid var(--line);display:flex;fle
       <div class="crew" id="crew"></div>
       <div class="detail" id="detail">點選貓咪或名單，打開牠的報告。</div>
     </div>
-    <div class="report" id="report" hidden></div>
   </aside>
 </div>
+
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="報告"><div class="report" id="report"></div></div></div>
 
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -425,7 +434,9 @@ const curDate={};
 const WD="日一二三四五六";
 const isWeekend=()=>{const [y,m,d]=todayStr().split("-").map(Number);const w=new Date(Date.UTC(y,m-1,d)).getUTCDay();return w===0||w===6};
 function dateLabel(d){const [y,m,dd]=d.split("-").map(Number);const w=new Date(Date.UTC(y,m-1,dd)).getUTCDay();return `${m}/${dd}（${WD[w]}）`}
-const reportEl=document.getElementById("report"),homeEls=[document.getElementById("home")];
+const reportEl=document.getElementById("report"),modal=document.getElementById("modal"),sheet=document.getElementById("sheet");let lastFocus=null;
+modal.addEventListener("click",e=>{if(e.target===modal)closeReport()});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.hidden)closeReport()});
 const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const safeUrl=u=>/^https:\/\//.test(String(u||""))?u:null;
 const samplePromise=window.claude?window.claude.use("sample"):Promise.resolve(null);
@@ -438,11 +449,11 @@ function refreshStatus(){
     else{el.textContent=isWeekend()?"週末休市":`今日預計 ${SCHED[k]}`;el.className="st wait"}}
   tvMat.color.set(submittedToday("white")?"#ffffff":"#3a3f4a");
 }
-function closeReport(){openK=null;reportEl.hidden=true;homeEls.forEach(e=>e.hidden=false)}
-function head(c){return `<div class="rhead"><button class="back" id="back">← 成員</button><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div></div>`}
+function closeReport(){openK=null;modal.hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function head(c){return `<div class="rhead"><span id="rav"></span><div><b style="color:${c.col}">${esc(c.name)}</b><span>${esc(c.role)}</span></div><button class="close" id="back" aria-label="關閉">✕</button></div>`}
 function wire(c){document.getElementById("rav").replaceWith(avatar(c,"#23263a"));document.getElementById("back").onclick=closeReport}
 function openReport(k){
-  openK=k;const c=CREW[k];homeEls.forEach(e=>e.hidden=true);reportEl.hidden=false;reportEl.style.setProperty("--acc",c.col);
+  const wasOpen=!modal.hidden&&openK===k;if(modal.hidden)lastFocus=document.activeElement;openK=k;const c=CREW[k];modal.hidden=false;sheet.setAttribute("aria-label",c.name+" 的報告");reportEl.style.setProperty("--acc",c.col);if(!wasOpen)sheet.scrollTop=0;requestAnimationFrame(()=>{const b=document.getElementById("back");if(b&&!sheet.contains(document.activeElement))b.focus()})
   let h=head(c);
   if(k==="gray"){
     h+=`<div class="rmeta"><span>${esc(dateLabel(todayStr()))}・今日交稿狀態${isWeekend()?"（週末休市）":""}</span></div><ul class="check">${["brown","black","orange","white","tabby"].map(a=>{const ok=submittedToday(a),cc=CREW[a];return `<li><i style="color:${ok?"#3fd17f":"#6b7282"}">${ok?"✓":"·"}</i><span style="color:${cc.col}">${esc(cc.name)}</span><span class="tm">${ok?esc(lst(a)[0].time||"")+" 已交":isWeekend()?"休市":"預計 "+SCHED[a]}</span></li>`}).join("")}</ul>
@@ -464,9 +475,10 @@ function openReport(k){
     h+=`<p class="rsum">${esc(r.summary)}</p><div class="rmeta">今日重點觀察</div><ol class="obs">${(r.obs||[]).map(o=>`<li><div>${esc(o.text)}${o.from?`<small>資料來源：${esc(o.from)}</small>`:""}</div></li>`).join("")}</ol>`;
   }else{
     const cols=r.cols&&r.cols.length===3?r.cols:["項目","數值","變化"];
-    h+=`<p class="rsum">${esc(r.summary)}</p>`;
+    h+=`<div class="rtop"><p class="rsum">${esc(r.summary)}</p>`;
     if((r.kpis||[]).length)h+=`<div class="rtbl"><table><thead><tr><th>${esc(cols[0])}</th><th class="n">${esc(cols[1])}</th><th class="n">${esc(cols[2])}</th></tr></thead><tbody>${r.kpis.map(x=>`<tr><td>${esc(x.label)}</td><td class="n">${esc(x.value)}</td><td class="n ${["up","down"].includes(x.dir)?x.dir:"flat"}">${esc(x.chg)}</td></tr>`).join("")}</tbody></table></div>`;
-    h+=`<div class="tabs" role="tablist">${[["prev","前一日"],["today","今日"],["next","明日"]].map(([id,lb])=>`<button role="tab" data-tab="${id}" aria-selected="${id===curTab}">${lb}</button>`).join("")}</div><ul class="rlist" id="tablist" role="tabpanel"></ul>`;
+    h+=`</div>`;
+    h+=`<div class="days3">${[["prev","前一日"],["today","今日"],["next","明日"]].map(([id,lb])=>{const d=(r.days&&r.days[id])||[];return `<section class="day"><h4>${lb}</h4>${d.length?`<ul class="rlist">${d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:`<p class="none">${id==="next"&&k==="orange"?"收盤後 14:00 補上。":"這一段今天沒有內容。"}</p>`}</section>`}).join("")}</div>`;
   }
   const src=(r.sources||[]).filter(x=>safeUrl(x.u));
   if(src.length)h+=`<div class="rsrc">資料來源<ul>${src.map(x=>`<li><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t||x.u)}</a></li>`).join("")}</ul></div>`;
@@ -474,9 +486,6 @@ function openReport(k){
   const keep=reportEl.querySelector("#askq")?.value||"",keepAns=reportEl.querySelector("#ans");const keepAnsT=keepAns&&!keepAns.hidden?keepAns.textContent:"";
   reportEl.innerHTML=h;wire(c);
   const ds=document.getElementById("dsel");if(ds)ds.onchange=()=>{curDate[k]=ds.value;openReport(k)};
-  const tl=document.getElementById("tablist");
-  if(tl){const fill=()=>{const d=(r.days&&r.days[curTab])||[];tl.innerHTML=d.length?d.map(x=>`<li>${esc(x)}</li>`).join(""):`<li style="list-style:none;margin-left:-1.2em;color:var(--muted)">${curTab==="next"&&k==="orange"?"收盤後 14:00 補上。":"這一段今天沒有內容。"}</li>`;reportEl.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===curTab))};
-    reportEl.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{curTab=b.dataset.tab;fill()});fill()}
   if(keep)document.getElementById("askq").value=keep;if(keepAnsT){const a=document.getElementById("ans");a.hidden=false;a.textContent=keepAnsT}
   setupAsk(k,c,r);
 }
@@ -569,5 +578,5 @@ function animate(now){
 resize();requestAnimationFrame(animate);
 highlight("brown",false);
 </script>
-</body>
+
 </html>
