@@ -1,0 +1,110 @@
+{
+ "agent": "brown",
+ "date": "2026-11-12",
+ "time": "07:43",
+ "summary": "CoreWeave財報亮眼帶動AI硬體反彈，費半大漲5.66%、台積電ADR漲4.25%至413.35美元，台指期夜盤漲470點；但輝達盤後因WSJ報導董事會擬撤換黃仁勳重挫約8%，加上12月升息幾已全數定價、美元指數創2025年5月來高，今日留意輝達消息對AI族群的干擾。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "52,486.49",
+   "chg": "+254.60（+0.49%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,619.38",
+   "chg": "+98.45（+1.31%）",
+   "dir": "up"
+  },
+  {
+   "label": "那斯達克",
+   "value": "25,466.19",
+   "chg": "+400.31（+1.60%）",
+   "dir": "up"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "10,564.11",
+   "chg": "+5.66%",
+   "dir": "up"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "413.35 美元",
+   "chg": "+16.87（+4.25%）",
+   "dir": "up"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "現貨休市（約5.00%）",
+   "chg": "—",
+   "dir": "flat"
+  },
+  {
+   "label": "新台幣（11/11）",
+   "value": "32.86",
+   "chg": "升值 0.5 分",
+   "dir": "up"
+  },
+  {
+   "label": "WTI 原油",
+   "value": "86.53 美元",
+   "chg": "+0.49（+0.6%）",
+   "dir": "up"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/11 美股全面收紅，那指漲1.60%、那斯達克100漲2.3%，VIX降至17.49",
+   "CoreWeave Q3營收年增168%至37億美元並上修全年財測，股價大漲24.7%，費半成分股全數上漲",
+   "輝達收漲2.92%至173.73美元，但盤後傳董事會擬撤換黃仁勳，一度重挫約8%；Baird降評至中立",
+   "美債現貨因退伍軍人節休市；市場已完全定價12月至少升息1碼，升2碼機率約1成，美元指數升至2025年5月來高",
+   "台積電通過最多10億美元投資Anthropic與OpenAI；Anthropic傳下週IPO、估值上看1.4兆美元",
+   "台指期夜盤收44,606點、漲470點；黃金期貨跌0.7%至每盎司3,992美元"
+  ],
+  "today": [
+   "輝達董事會對黃仁勳去留的後續決議（WSJ稱最快11/11當天）",
+   "21:30 美國初領／續領失業救濟金",
+   "23:00 美國10月成屋銷售",
+   "11/13 01:00 EIA原油庫存（因假日延後）；02:00 美國30年期公債標售220億美元",
+   "美股盤後：應用材料（AMAT）、思科（CSCO）財報；盤前 Nebius（NBIS）"
+  ],
+  "next": [
+   "11/13（五）21:30 美國10月PPI及核心PPI",
+   "11/13 23:30 EIA天然氣庫存；11/14 02:00 貝克休斯鑽井數",
+   "11/13 SpaceX Starship 第15次試飛預定發射",
+   "Anthropic 預計下週掛牌，市場關注AI供應鏈評價"
+  ]
+ },
+ "sources": [
+  {
+   "t": "聯合新聞網｜美股收盤／費半大漲5.7% 黃仁勳傳CEO位子不保讓輝達盤後大跌8%",
+   "u": "https://udn.com/news/story/6811/9873188"
+  },
+  {
+   "t": "知新聞｜費半、台積電ADR飆升5.7%及4.3%！台指期夜盤收漲470點",
+   "u": "https://www.knews.com.tw/news/28D0E53145127EE21C11B532F314924A"
+  },
+  {
+   "t": "Yahoo股市｜台積電ADR11日上漲16.87美元漲幅4.25%",
+   "u": "https://tw.stock.yahoo.com/news/%E5%8F%B0%E7%A9%8D%E9%9B%BBadr11%E6%97%A5%E4%B8%8A%E6%BC%B216-87%E7%BE%8E%E5%85%83%E6%BC%B2%E5%B9%854-25-%E6%8A%98%E5%8F%B0%E8%82%A12716-54%E5%85%83-215136915.html"
+  },
+  {
+   "t": "中央社｜台股連3漲收復44000點 新台幣升勢乏力收32.86元",
+   "u": "https://www.cna.com.tw/news/afe/202611110283.aspx"
+  },
+  {
+   "t": "Yahoo Finance｜Stock market today: Nvidia slides following reports of CEO's second affair",
+   "u": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-11-dow-sp-500-nasdaq-nvidia-treasurys-veterans-day-140638547.html"
+  },
+  {
+   "t": "Investrade｜Weekly Event Calendar: 11/09/2026 - 11/13/2026",
+   "u": "https://investrade.com/weekly-event-calendar-11-09-2026-11-13-2026/"
+  }
+ ]
+}
