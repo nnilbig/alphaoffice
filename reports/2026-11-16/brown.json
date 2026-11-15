@@ -1,0 +1,108 @@
+{
+ "agent": "brown",
+ "date": "2026-11-16",
+ "time": "07:43",
+ "summary": "上週五費半重挫3.43%、台積電ADR跌1.69%，台指期夜盤小跌133點；美10年債殖利率升至5.15%，週末FT報導黃仁勳考慮重返輝達執行長，本週焦點在11/18清晨輝達財報與11/19 Anthropic掛牌。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "52,347.55",
+   "chg": "+50.46（+0.10%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,561.67",
+   "chg": "-30.73（-0.40%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "25,136.27",
+   "chg": "-229.82（-0.91%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "10,146.32",
+   "chg": "-360.35（-3.43%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "398.63 美元",
+   "chg": "-6.86（-1.69%）",
+   "dir": "down"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "5.15%",
+   "chg": "+5 個基點",
+   "dir": "up"
+  },
+  {
+   "label": "新台幣（11/13）",
+   "value": "32.838",
+   "chg": "升值 5.1 分",
+   "dir": "up"
+  },
+  {
+   "label": "WTI原油（12月）",
+   "value": "88.56 美元",
+   "chg": "-0.18（-0.20%）",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/13美股漲跌互見：道瓊+0.10%，那指-0.91%；費半-3.43%，超微-8.75%、博通-4.76%、美光-2.52%",
+   "輝達收162.85美元跌2.01%，單週跌約12%、市值跌破4兆美元；台指期夜盤收43,706點跌133點",
+   "美國10月PPI月增0.3%低於預期0.4%，但年增6.5%為2022年11月來最大；10年債盤中最高5.17%",
+   "新台幣11/13升5.1分收32.838元，外資終止連11賣、買超台股約288億元；週線仍貶0.21%",
+   "週末FT：黃仁勳與親信討論重返輝達執行長；此前FT報導董事會曾接洽安謀執行長Rene Haas"
+  ],
+  "today": [
+   "07:50 日本第3季GDP初值，市場預估年化+0.3%（前值+1.4%）",
+   "10:00 中國10月零售銷售（預估年增0.8%）、工業生產（預估年增5.3%）、固定資產投資",
+   "21:30 美國11月紐約州製造業指數，預估17.6（前值25.5）；百度盤前公布財報",
+   "18:00 Fed理事Barr、22:05紐約Fed總裁Williams談話；11/17 01:00 Fed主席Warsh演說"
+  ],
+  "next": [
+   "11/17（二）21:30 美國10月零售銷售，預估月增0.2%（前值0.8%）；22:15 工業生產",
+   "11/17 晚間 家得寶、迪士尼、京東盤前財報；Fed官員Musalem、Waller、Hammack談話",
+   "輝達美東11/17盤後公布財報（台灣11/18清晨），預估營收1,088億美元、EPS 2.47美元",
+   "Anthropic預計11/18定價（每股70–78美元）、11/19掛牌；11/19 03:00 FOMC 10月會議紀要"
+  ]
+ },
+ "sources": [
+  {
+   "t": "Yahoo Finance｜Stock market today: Dow rises, S&P 500 and Nasdaq slip to cap volatile week",
+   "u": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-ppi-141451558.html"
+  },
+  {
+   "t": "新頭殼｜黃仁勳黯然下台！美股主指漲跌互現 台積電ADR跌1.69%",
+   "u": "https://newtalk.tw/news/view/2026-11-14/1071101"
+  },
+  {
+   "t": "Yahoo股市｜黃仁勳風波續燒 台積電ADR跌1.67%、台指期夜盤摔133點",
+   "u": "https://tw.stock.yahoo.com/news/%E9%BB%83%E4%BB%81%E5%8B%B3%E9%A2%A8%E6%B3%A2%E7%BA%8C%E7%87%92-%E8%BC%9D%E9%81%94%E8%B7%8C%E6%B2%92%E5%81%9C-%E7%BE%8E%E8%82%A14%E5%A4%A7%E6%8C%87%E6%95%B8%E6%BC%B2%E8%B7%8C%E4%BA%92%E8%A6%8B-%E5%8F%B0%E7%A9%8D%E9%9B%BBadr%E8%B7%8C1-67-231000284.html"
+  },
+  {
+   "t": "中央社｜外資回頭終止連11賣 新台幣小升收32.838元",
+   "u": "https://www.cna.com.tw/news/afe/202611130237.aspx"
+  },
+  {
+   "t": "FXEmpire｜The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+   "u": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719"
+  },
+  {
+   "t": "investingLive｜Economic and event calendar in Asia, Monday, November 16, 2026",
+   "u": "https://investinglive.com/central-banks/economic-and-event-calendar-in-asia-monday-november-16-2026-boj-china-data-japan-gdp/"
+  }
+ ]
+}
