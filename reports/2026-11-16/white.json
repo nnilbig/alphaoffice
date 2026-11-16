@@ -1,0 +1,46 @@
+{
+ "agent": "white",
+ "date": "2026-11-16",
+ "time": "08:21",
+ "summary": "台股上週五反彈583點收43,675.12點、外資終止連11賣，但同晚費半重挫3.43%、台指期夜盤跌133點，外資期貨淨空單再站上10萬口；本週焦點落在黃仁勳卸任後輝達的首份財報（台灣11/18清晨）與11/19 Anthropic掛牌。",
+ "obs": [
+  {
+   "text": "週五費半−3.43%、AMD−8.75%、台積電ADR−1.67%，留意今日半導體與AI族群開盤承壓程度",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "外資現貨買超288.36億元，台指期淨空單卻增至100,870口，現貨與期貨方向分歧",
+   "from": "Mikan・盤勢"
+  },
+  {
+   "text": "輝達11/17美股盤後財報（台灣11/18清晨），預估營收1,088億美元、EPS 2.47美元",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "美10年債殖利率升至5.15%；10月PPI年增6.5%為2022年11月來最大，留意晚間Fed官員談話",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "參考價位：11/13高44,489.48點、低43,534.12點；分析師點出半年線45,441點、季線46,215點為上檔壓力",
+   "from": "Mikan・盤勢"
+  }
+ ],
+ "sources": [
+  {
+   "t": "中央社｜三大法人買超台股439.65億元",
+   "u": "https://www.cna.com.tw/news/afe/202611130165.aspx"
+  },
+  {
+   "t": "新頭殼｜外資終止連11賣 回頭買超288億元 期貨卻加空1,297口",
+   "u": "https://newtalk.tw/news/view/2026-11-13/1071018"
+  },
+  {
+   "t": "中央社｜黃仁勳去職後首場輝達財報說明會 法人看AI展望牽動台股",
+   "u": "https://www.cna.com.tw/news/afe/202611150033.aspx"
+  },
+  {
+   "t": "FXEmpire｜The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+   "u": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719"
+  }
+ ]
+}
