@@ -1,0 +1,108 @@
+{
+ "agent": "brown",
+ "date": "2026-11-17",
+ "time": "07:43",
+ "summary": "11/16美股科技股續殺，費半再挫5.28%、台積電ADR重挫6.34%至373.45美元，輝達董事會暫不考慮黃仁勳回任；美方擬限制遠端使用先進AI晶片。今晚美國零售銷售登場，台灣11/18清晨輝達財報是AI供應鏈最大變數。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "51,608.17",
+   "chg": "-739.38（-1.41%）",
+   "dir": "down"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,416.59",
+   "chg": "-145.08（-1.92%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "24,509.76",
+   "chg": "-626.52（-2.49%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "9,610.65",
+   "chg": "-535.67（-5.28%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "373.45 美元",
+   "chg": "-25.28（-6.34%）",
+   "dir": "down"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "5.117%",
+   "chg": "-2.2 個基點",
+   "dir": "down"
+  },
+  {
+   "label": "新台幣（11/16）",
+   "value": "32.886",
+   "chg": "貶值 4.8 分",
+   "dir": "down"
+  },
+  {
+   "label": "WTI原油（12月）",
+   "value": "85.72 美元",
+   "chg": "-2.84",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/16美股重挫：道瓊-739點（-1.41%）、那指-2.49%；費半-5.28%，台積電ADR跌6.34%，折台股約2,456元",
+   "輝達收156.14美元跌4.12%；CNBC報導董事會未討論黃仁勳復職，已委任律所調查爭議",
+   "美國將發布規定限制遠端取用先進AI晶片，晶片股領跌；英特爾因股東集體訴訟跌逾6%",
+   "美國11月紐約州製造業指數7.8，遠低於預期18.0（前值25.5）；10年債殖利率降2.2個基點",
+   "日本Q3 GDP初值季增0.0%低於預期；新台幣11/16收32.886元，外資賣超台股701.89億元"
+  ],
+  "today": [
+   "21:30 美國10月零售銷售（預估月增0.2%，前值0.8%）、進出口物價",
+   "22:15 美國10月工業生產與產能利用率；23:00 9月企業存貨",
+   "美股盤前：家得寶（EPS預估3.87美元）、迪士尼公布財報",
+   "輝達美東盤後公布Q3財報，台灣11/18 05:20財務長評論、06:00法說；公司財測營收約1,080億美元"
+  ],
+  "next": [
+   "11/18（三）21:30 美國10月新屋開工與營建許可",
+   "11/18 美股盤前Target、Lowe's、TJX財報；盤後Palo Alto Networks財報",
+   "Anthropic預計11/18定價（每股70–78美元），11/19於那斯達克掛牌，代號ANT",
+   "11/19 03:00 公布10/27–28 FOMC會議紀要（當時利率維持3.75%–4.00%，2位委員主張升息）"
+  ]
+ },
+ "sources": [
+  {
+   "t": "Yahoo Finance｜Stock market today: Dow and S&P 500 drop, Nasdaq sinks over 2% as Nvidia leads AI trade lower",
+   "u": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-16-dow-sp-500-nasdaq-nvidia-oil-091631084.html"
+  },
+  {
+   "t": "中時新聞網｜輝達暫未考慮讓黃仁勳回鍋 股價再跌逾4％ 美股重挫逾700點",
+   "u": "https://www.chinatimes.com/realtimenews/20261117000961-260410"
+  },
+  {
+   "t": "Yahoo股市｜台積電ADR16日下跌25.28美元跌幅6.34%",
+   "u": "https://tw.stock.yahoo.com/news/%E5%8F%B0%E7%A9%8D%E9%9B%BBadr16%E6%97%A5%E4%B8%8B%E8%B7%8C25-28%E7%BE%8E%E5%85%83%E8%B7%8C%E5%B9%856-34-%E6%8A%98%E5%8F%B0%E8%82%A12456-26%E5%85%83-214634438.html"
+  },
+  {
+   "t": "中央社｜台股創史上第2大跌點 外資匯出趨緩新台幣小貶4.8分",
+   "u": "https://www.cna.com.tw/news/afe/202611160233.aspx"
+  },
+  {
+   "t": "Newsquawk｜US Market Wrap 16th November 2026",
+   "u": "https://www.newsquawk.com/headlines/us-market-wrap---16th-november-2026-risk-off-trade-as-tech-rout-resumes-supporting-havens-"
+  },
+  {
+   "t": "TradingKey｜Week Ahead: Nvidia Q3 Earnings, US October Retail Sales, FOMC Minutes",
+   "u": "https://www.tradingkey.com/analysis/stocks/us-stocks/262305825-week-ahead-nvidia-q3-earnings-us-october-retail-sales-fomc-minutes-walmart-tradingkey"
+  }
+ ]
+}
