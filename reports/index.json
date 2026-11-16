@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T08:32:25+08:00",
+ "updated": "2026-11-16T14:12:42+08:00",
  "reports": [
   {
    "agent": "brown",
@@ -14,7 +14,8 @@
   {
    "agent": "orange",
    "date": "2026-11-16",
-   "time": "08:08"
+   "time": "08:08",
+   "closeTime": "14:12"
   },
   {
    "agent": "white",
