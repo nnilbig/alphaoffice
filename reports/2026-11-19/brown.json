@@ -1,0 +1,106 @@
+{
+ "agent": "brown",
+ "date": "2026-11-19",
+ "time": "07:42",
+ "summary": "Fed會議紀要偏鷹、理事Waller喊12月升息兩碼，美元走強、新台幣11/18貶至32.947元創逾19個月低；美股道瓊再跌561點，但費半與台積電ADR小漲，Anthropic今晚在那斯達克掛牌為AI股新焦點。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "50,198.17",
+   "chg": "-561.25（-1.11%）",
+   "dir": "down"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,323.63",
+   "chg": "-16.90（-0.23%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "24,429.88",
+   "chg": "+101.50（+0.42%）",
+   "dir": "up"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "9,652.80",
+   "chg": "+9.92（+0.10%）",
+   "dir": "up"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "361.07 美元",
+   "chg": "+1.38（+0.38%）",
+   "dir": "up"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "約5.07%",
+   "chg": "約-3.5個基點",
+   "dir": "down"
+  },
+  {
+   "label": "新台幣（11/18收盤）",
+   "value": "32.947",
+   "chg": "貶值9.7分",
+   "dir": "down"
+  },
+  {
+   "label": "WTI原油（12月）",
+   "value": "83.26 美元",
+   "chg": "-3.20%",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "美股11/18：道瓊跌561點、S&P 500連5跌並跌破200日均線，那指漲0.42%，費半漲0.10%",
+   "輝達財測優於預期但收跌約2.9%，市場仍憂心黃仁勳去職後的接班問題",
+   "FOMC紀要：10月維持利率票數10比2，Cook、Hammack主張升息一碼；Waller主張12月升息兩碼",
+   "美國10月新屋開工130.9萬戶優於預期124.5萬戶；黃金跌約3.2%至約3,727美元",
+   "Anthropic IPO定價每股83美元、高於原區間70–78美元，估值約1.5兆美元",
+   "新台幣11/18盤中貶破33元、收32.947元；外資賣超台股765.63億元、連3賣"
+  ],
+  "today": [
+   "21:30 美國初領失業金人數、11月費城Fed製造業指數",
+   "美股盤前Walmart財報；盤後Intuit、Ross Stores財報",
+   "Anthropic（代號ANT）今日起於那斯達克掛牌交易"
+  ],
+  "next": [
+   "美國11月密大消費者信心指數終值（台北時間約23:00）",
+   "Fed理事Cook發表演說"
+  ]
+ },
+ "sources": [
+  {
+   "t": "太報（Yahoo新聞）｜市場評估輝達財報、Fed紀要 美股漲跌互見！台積電ADR微揚",
+   "u": "https://tw.news.yahoo.com/%E5%B8%82%E5%A0%B4%E8%A9%95%E4%BC%B0%E8%BC%9D%E9%81%94%E8%B2%A1%E5%A0%B1-fed%E7%B4%80%E8%A6%81-%E7%BE%8E%E8%82%A1%E6%BC%B2%E8%B7%8C%E4%BA%92%E8%A6%8B-%E5%8F%B0%E7%A9%8D%E9%9B%BBadr%E5%BE%AE%E6%8F%9A-230219744.html"
+  },
+  {
+   "t": "Motley Fool｜Stock Market Today, Nov. 18: S&P 500 Breaks Key Support as Fed Minutes Signal More Rate Hikes Ahead",
+   "u": "https://www.fool.com/coverage/stock-market-today/2026/11/18/stock-market-today-nov-18-s-and-p-500-breaks-key-support-as-fed-minutes-signal-more-rate-hikes-ahead/"
+  },
+  {
+   "t": "investingLive｜Americas FX news wrap 18 Nov: Waller/Fed minutes put a bigger December hike in play",
+   "u": "https://www.louisvelazquez.com/investinglive-americas-fx-news-wrap-18-nov-waller-fed-minutes-put-a-bigger-december-hike-in-play/"
+  },
+  {
+   "t": "中央社｜外資續砍台股 新台幣貶值壓力難解創逾19個月新低",
+   "u": "https://www.cna.com.tw/news/afe/202611180307.aspx"
+  },
+  {
+   "t": "Fortune｜Anthropic prices IPO at $83 per share, giving it a $1.5 trillion valuation",
+   "u": "https://fortune.com/2026/11/18/anthropic-prices-ipo-83-per-share-1-5-trillion/"
+  },
+  {
+   "t": "經濟日報｜輝達財測亮眼仍難消市場疑慮 股價收跌近3%",
+   "u": "https://money.udn.com/money/story/123398/9887910"
+  }
+ ]
+}
