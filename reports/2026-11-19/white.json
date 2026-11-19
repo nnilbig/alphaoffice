@@ -1,0 +1,46 @@
+{
+ "agent": "white",
+ "date": "2026-11-19",
+ "time": "08:21",
+ "summary": "Fed紀要偏鷹、新台幣貶至逾19個月低，外資連3日賣超台股；加權指數11/18結算日震盪約1,600點後小漲守住4萬點，低軌衛星、網通與ABF載板走強。今日Mikan（盤勢）報告尚未產出，本次會議依Hojicha與Nori兩份報告整理。",
+ "obs": [
+  {
+   "text": "Fed理事Waller主張12月升息兩碼，紀要偏鷹，美元走強、新台幣11/18收32.947元",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "外資11/18賣超約766億、連3賣，觀察賣壓是否收斂",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "加權指數盤中跌破4萬點與年線後收復，收40,194.91點，關卡攻防仍是焦點",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "Anthropic今晚於那斯達克掛牌（定價83美元），留意AI伺服器與ASIC族群反應",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "低軌衛星、網通與ABF載板11/18反彈，能否延續待觀察",
+   "from": "Nori・產業"
+  }
+ ],
+ "sources": [
+  {
+   "t": "Motley Fool｜Stock Market Today, Nov. 18: S&P 500 Breaks Key Support as Fed Minutes Signal More Rate Hikes Ahead",
+   "u": "https://www.fool.com/coverage/stock-market-today/2026/11/18/stock-market-today-nov-18-s-and-p-500-breaks-key-support-as-fed-minutes-signal-more-rate-hikes-ahead/"
+  },
+  {
+   "t": "中央社｜外資續砍台股 新台幣貶值壓力難解創逾19個月新低",
+   "u": "https://www.cna.com.tw/news/afe/202611180307.aspx"
+  },
+  {
+   "t": "工商時報｜上沖下洗又一天 台股漲百點力守40K 低軌衛星唱高調",
+   "u": "https://www.ctee.com.tw/news/20261118701352-430201"
+  },
+  {
+   "t": "Fortune｜Anthropic prices IPO at $83 per share, giving it a $1.5 trillion valuation",
+   "u": "https://fortune.com/2026/11/18/anthropic-prices-ipo-83-per-share-1-5-trillion/"
+  }
+ ]
+}
