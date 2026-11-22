@@ -1,0 +1,112 @@
+{
+ "agent": "brown",
+ "date": "2026-11-23",
+ "time": "07:43",
+ "summary": "上週五美股AI股賣壓全面擴大，費半單日重挫10.73%、台積電ADR跌9.48%，台指期夜盤跌1,881點至33,919點；今日台股開盤面臨補跌壓力，留意美國本週縮短交易週與週三PCE、GDP數據。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "48,147.33",
+   "chg": "-949.73（-1.93%）",
+   "dir": "down"
+  },
+  {
+   "label": "S&P 500",
+   "value": "6,910.39",
+   "chg": "-265.44（-3.70%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "22,617.73",
+   "chg": "-1,261.47（-5.28%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "8,408.59",
+   "chg": "-1,011.13（-10.73%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "318.71",
+   "chg": "-33.38（-9.48%）",
+   "dir": "down"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "4.92%",
+   "chg": "-12bp",
+   "dir": "down"
+  },
+  {
+   "label": "美元指數",
+   "value": "103.84",
+   "chg": "—",
+   "dir": "flat"
+  },
+  {
+   "label": "新台幣（11/20收盤）",
+   "value": "32.936",
+   "chg": "升0.6分",
+   "dir": "up"
+  },
+  {
+   "label": "黃金期貨",
+   "value": "3,539",
+   "chg": "-3.98%",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/20美股重挫：那指跌5.28%、S&P 500跌3.70%，S&P連7黑，道瓊與S&P進入修正區",
+   "費半當週累計跌17.13%，輝達單日跌14.01%至125.53美元、當週跌22.9%",
+   "美光跌13.89%、AMD跌13.25%、博通跌12.19%，台灣ETF（EWT）跌10.95%",
+   "Anthropic上市第二天收88.91美元、跌8.50%（承銷價83美元），未能提振AI股",
+   "VIX升26.20%至35.89；台指期夜盤跌1,881點（-5.25%）至33,919點",
+   "Fed理事Cook稱延後升息恐落後情勢；11月密大消費者信心51.5（10月48.0）"
+  ],
+  "today": [
+   "日本勤勞感謝日休市",
+   "22:45 美國11月S&P Global製造業／服務業PMI初值；歐洲各國PMI初值同日公布",
+   "Fed紐約分行總裁Williams、ECB的Lane、BoE的Pill發表談話",
+   "美股盤後：HPE、Agilent財報（台灣時間週二早上）"
+  ],
+  "next": [
+   "德國11月IFO企業景氣指數、日本11月PMI初值",
+   "23:00 美國11月經濟諮商會消費者信心指數",
+   "BoC總裁Macklem、ECB的Vujcic發表談話",
+   "美股盤後：Dell、Workday、HP財報（台灣時間週三早上）",
+   "本週：週三PCE、Q3 GDP修正、耐久財；週四美股感恩節休市，週五提前收盤"
+  ]
+ },
+ "sources": [
+  {
+   "t": "The Closing Print｜Post-Market & Weekly Summary 2026-11-20",
+   "u": "https://www.theclosingprint.net/2026/11/post-market-and-weekly-summary-2026-11-20/"
+  },
+  {
+   "t": "富聯網｜美股收盤速報：費半跌近11% 台指期摜破3萬4",
+   "u": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?sn=6367544001&pu=News_0001_3"
+  },
+  {
+   "t": "StockTitan｜Stock Market Today, November 20, 2026",
+   "u": "https://www.stocktitan.net/articles/stock-market-today-live-november-20-2026"
+  },
+  {
+   "t": "中央社｜新台幣升0.6分 收32.936元",
+   "u": "https://www.cna.com.tw/news/afe/202611200192.aspx"
+  },
+  {
+   "t": "Newsquawk｜Weekly Economic Calendar 23rd-27th November 2026",
+   "u": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---23rd-27th-november-2026"
+  }
+ ]
+}
