@@ -1,0 +1,111 @@
+{
+ "agent": "brown",
+ "date": "2026-11-24",
+ "time": "07:43",
+ "summary": "黃仁勳復任輝達執行長引爆AI股報復性反彈，輝達單日飆31.48%、費半大漲14.03%、台積電ADR漲14.08%至363.60美元（折台股約2,392元）；觀察：台股今日面對上週跌幅的回補壓力轉為反彈動能，週三晚間PCE與週四美股休市為本週後段焦點。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "49,595.31",
+   "chg": "+1,447.98（+3.01%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,237.17",
+   "chg": "+326.78（+4.73%）",
+   "dir": "up"
+  },
+  {
+   "label": "那斯達克",
+   "value": "24,089.56",
+   "chg": "+1,471.82（+6.51%）",
+   "dir": "up"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "9,588.05",
+   "chg": "+1,179.46（+14.03%）",
+   "dir": "up"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "363.60",
+   "chg": "+44.89（+14.08%）",
+   "dir": "up"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "4.936%",
+   "chg": "+2.4bp",
+   "dir": "up"
+  },
+  {
+   "label": "新台幣（11/23收盤）",
+   "value": "32.895",
+   "chg": "升4.1分",
+   "dir": "up"
+  },
+  {
+   "label": "WTI原油（1月）",
+   "value": "80.20",
+   "chg": "-3.85%",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "輝達董事會盤前宣布黃仁勳即日復任執行長，距離職僅11天；川普公開表態支持",
+   "輝達收165.05美元、漲31.48%，CNBC稱為2003年5月以來最大單日漲幅",
+   "那指漲6.51%創2025/4/9以來最大漲幅，S&P止住7連跌；VIX跌25.8%至26.62",
+   "美光漲19.0%、Dell漲20.5%、英特爾漲16.3%、CoreWeave漲22.3%",
+   "CrowdStrike宣布收購Zscaler，CrowdStrike跌8.9%、Zscaler漲17.7%",
+   "金價自上週五14個月低點反彈逾2%；WTI原油跌3.85%"
+  ],
+  "today": [
+   "日本11月PMI初值、德國11月Ifo企業景氣指數",
+   "22:00 美國9月Case-Shiller房價指數",
+   "23:00 美國11月經濟諮商會消費者信心（市場預估92.2，前值91.7）",
+   "ECB的Vujcic、BoE的Greene、BoC總裁Macklem發表談話；美國標售700億美元5年期公債",
+   "美股盤前：Analog Devices、Medtronic；盤後：Dell、Workday、HP、Autodesk（台灣時間週三早上）"
+  ],
+  "next": [
+   "澳洲10月CPI、日本10月服務業PPI",
+   "21:30 美國10月PCE（核心年增預估3.4%）、個人所得與支出、Q3 GDP修正（預估3.5%）、耐久財、初領失業金",
+   "23:00 美國10月新屋銷售；Deere財報",
+   "週四03:00 Fed褐皮書；週四美股感恩節休市，週五提前於台灣時間02:00收盤",
+   "12/9 FOMC會議前Fed已進入緘默期"
+  ]
+ },
+ "sources": [
+  {
+   "t": "FinanceFeeds｜Stock Market Today: Nasdaq Jumps 6.5% as Huang Returns",
+   "u": "https://financefeeds.com/stock-market-today-nasdaq-jumps-6-5-percent-as-huang-returns/"
+  },
+  {
+   "t": "NOWnews｜黃仁勳回歸！美股道瓊、那指、費半狂噴",
+   "u": "https://www.nownews.com/news/6894931"
+  },
+  {
+   "t": "中央社（Yahoo股市）｜台積電ADR23日上漲44.89美元",
+   "u": "https://tw.stock.yahoo.com/news/%E5%8F%B0%E7%A9%8D%E9%9B%BBadr23%E6%97%A5%E4%B8%8A%E6%BC%B244-89%E7%BE%8E%E5%85%83%E6%BC%B2%E5%B9%8514-08-%E6%8A%98%E5%8F%B0%E8%82%A12392-12%E5%85%83-214135201.html"
+  },
+  {
+   "t": "中央社｜新台幣升4.1分 收32.895元",
+   "u": "https://www.cna.com.tw/news/afe/202611230161.aspx"
+  },
+  {
+   "t": "AP（myMotherLode）｜How major US stock indexes fared 11/23/2026",
+   "u": "https://mymotherlode.com/news/national/11334721/how-major-us-stock-indexes-fared-monday-11-23-2026.html"
+  },
+  {
+   "t": "ZeroHedge｜Key Events This Holiday-Shortened Week: All About PCE",
+   "u": "https://www.zerohedge.com/markets/key-events-holiday-shortened-week-all-about-pce"
+  }
+ ]
+}
