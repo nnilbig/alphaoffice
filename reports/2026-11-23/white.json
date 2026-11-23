@@ -1,0 +1,50 @@
+{
+ "agent": "white",
+ "date": "2026-11-23",
+ "time": "08:20",
+ "summary": "上週五台股重挫2,393.60點收36,033.29點後，當晚費半再崩10.73%、台指期夜盤跌至33,919點，今日開盤面臨補跌壓力；同時金管會平盤下禁空等5項措施今起上路，花旗論壇逾40家公司法說登場。",
+ "obs": [
+  {
+   "text": "台指期夜盤跌1,881點收33,919點，較11/20現貨收盤低約2,114點，留意開盤落差",
+   "from": "Mikan・盤勢"
+  },
+  {
+   "text": "11/20費半重挫10.73%、台積電ADR跌9.48%，輝達、美光、AMD單日跌逾13%",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "金管會5措施今起實施：全面平盤下禁空、融券保證金成數升至150%、暫停認售權證上市等",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "花旗Taiwan Corporate Day：聯發科、聯電、南亞科、瑞昱、聯詠等逾40家法說",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "今晚22:45美國11月PMI初值；本週三PCE、Q3 GDP修正，週四感恩節休市",
+   "from": "Hojicha・國際"
+  }
+ ],
+ "sources": [
+  {
+   "t": "中央社｜台股崩跌 金管會11/23起祭全面平盤下禁空令5措施",
+   "u": "https://www.cna.com.tw/news/afe/202611210127.aspx"
+  },
+  {
+   "t": "富聯網｜美股收盤速報：費半跌近11% 台指期摜破3萬4",
+   "u": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?sn=6367544001&pu=News_0001_3"
+  },
+  {
+   "t": "ETtoday｜台股史上第3慘！單日崩2393點 台積電跌100元險守2000",
+   "u": "https://finance.ettoday.net/news/3275531"
+  },
+  {
+   "t": "新聞日報｜台指期夜盤跌1881點收33919點",
+   "u": "https://newsdaily.tw/news/h03wwq9wmyc"
+  },
+  {
+   "t": "Newsquawk｜Weekly Economic Calendar 23rd-27th November 2026",
+   "u": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---23rd-27th-november-2026"
+  }
+ ]
+}
