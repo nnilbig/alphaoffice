@@ -1,0 +1,46 @@
+{
+ "agent": "white",
+ "date": "2026-11-24",
+ "time": "08:21",
+ "summary": "黃仁勳復任輝達執行長帶動美股AI股大反彈，費半漲14.03%、台指期夜盤大漲3,170點；但11/23外資現貨連6賣、台指期淨空單重回10萬口以上，今天是夜盤熱度與法人籌碼方向分歧的一天，融資維持率下限也自今日起降至120%。",
+ "obs": [
+  {
+   "text": "台指期夜盤漲3,170點（+8.65%）、一度觸漲停40,324點，留意開盤後現貨能否跟上",
+   "from": "Mikan・盤勢"
+  },
+  {
+   "text": "外資現貨連6賣累計-2,476.18億、台指期淨空單103,432口，觀察今日法人是否轉向",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "輝達漲31.48%、費半漲14.03%、台積電ADR漲14.08%（折台股約2,392元，11/23收2,030元）",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "融資維持率下限今起由130%降至120%，限空新制上路第二天，留意融資餘額變化",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "週三晚間美國10月PCE與Q3 GDP修正，週四美股感恩節休市",
+   "from": "Hojicha・國際"
+  }
+ ],
+ "sources": [
+  {
+   "t": "中央社｜黃仁勳重返輝達台指期夜盤飆漲 法人：台股可望報復反彈",
+   "u": "https://www.cna.com.tw/news/afe/202611240021.aspx"
+  },
+  {
+   "t": "FinanceFeeds｜Stock Market Today: Nasdaq Jumps 6.5% as Huang Returns",
+   "u": "https://financefeeds.com/stock-market-today-nasdaq-jumps-6-5-percent-as-huang-returns/"
+  },
+  {
+   "t": "自由財經｜外資期貨空單大增5569口 現貨賣超289.4億元",
+   "u": "https://ec.ltn.com.tw/article/breakingnews/5650657"
+  },
+  {
+   "t": "NOWnews｜台股強彈778點！限空令上路、國安基金護盤",
+   "u": "https://www.nownews.com/news/6894765"
+  }
+ ]
+}
