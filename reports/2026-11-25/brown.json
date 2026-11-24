@@ -1,0 +1,109 @@
+{
+ "agent": "brown",
+ "date": "2026-11-25",
+ "time": "07:44",
+ "summary": "「黃仁勳行情」僅撐一天，費半重挫7.88%、輝達跌5.86%、台積電ADR跌3.96%至349.20美元，台指期夜盤跌1,842點；觀察：昨日台股暴漲後今日面臨AI股回檔與美國擬加徵關稅雙重壓力，今晚21:30 PCE為感恩節前最後關鍵數據。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "50,018.70",
+   "chg": "+423.39（+0.85%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,201.09",
+   "chg": "-36.08（-0.50%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "23,733.54",
+   "chg": "-356.02（-1.48%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "8,832.50",
+   "chg": "-755.55（-7.88%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "349.20",
+   "chg": "-14.40（-3.96%）",
+   "dir": "down"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "4.904%",
+   "chg": "-1.4bp",
+   "dir": "down"
+  },
+  {
+   "label": "新台幣（11/24收盤）",
+   "value": "32.939",
+   "chg": "貶4.4分",
+   "dir": "down"
+  },
+  {
+   "label": "黃金",
+   "value": "3,552.30",
+   "chg": "-99.10（-2.71%）",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "道瓊漲0.85%站上50,000點，那指跌1.48%、S&P跌0.50%，資金轉往防禦股",
+   "費半跌7.88%：輝達跌5.86%至155.38美元、美光跌10.97%、AMD跌8.86%、博通跌3.98%",
+   "台積電ADR折台股2,298.64元，較台股2,230元溢價3.08%；聯電ADR跌6.88%、日月光ADR跌8%",
+   "美方據報擬對中國等多個貿易夥伴提高關稅，最快本週宣布",
+   "Anthropic股價收81.91美元，跌破83美元IPO價",
+   "11月經濟諮商會消費者信心103.3，遠優於預估92.4，近兩年高點；Dell盤後財報優於預期並上修財測"
+  ],
+  "today": [
+   "21:30 美國10月PCE（核心年增預估3.2%、前值3.1%）、個人所得與支出",
+   "21:30 美國Q3 GDP修正（預估3.5%）、10月耐久財訂單、初領失業金（預估20.1萬）",
+   "23:00 美國新屋銷售；美股盤前Deere財報（EPS預估4.07美元）；標售7年期公債",
+   "週四03:00 Fed褐皮書；12/9 FOMC前Fed進入緘默期"
+  ],
+  "next": [
+   "週四美股、美債感恩節休市；週五美股提前於台灣時間週六02:00收盤",
+   "09:00 南韓央行利率決策",
+   "15:00 德國GfK消費者信心；20:30 ECB公布10月會議紀要",
+   "週五07:30 東京11月CPI；09:30 中國工業利潤"
+  ]
+ },
+ "sources": [
+  {
+   "t": "聯合新聞網｜台積電ADR跌近4% 台指期夜盤重摔1,842點",
+   "u": "https://udn.com/news/story/125066/9900102"
+  },
+  {
+   "t": "自由財經｜美股收盤》川普擬加徵關稅 輝達回跌、費半慘摔",
+   "u": "https://ec.ltn.com.tw/article/breakingnews/5652311"
+  },
+  {
+   "t": "ETtoday｜黃仁勳行情熄火！美股晶片類股跌逾7％ Anthropic破發",
+   "u": "https://www.ettoday.net/news/20261125/3277950.htm"
+  },
+  {
+   "t": "中央社｜新台幣貶4.4分 收32.939元",
+   "u": "https://www.cna.com.tw/news/afe/202611240185.aspx"
+  },
+  {
+   "t": "Vista Partners｜Stock Market Today, November 24, 2026: Dow Tops 50,000",
+   "u": "https://vistapglobal.com/stock-market-today-november-24-2026-dow-tops-50000-as-nasdaq-slides-consumer-confidence-surges-with-pce-due-on-thanksgiving-eve-ant-bby-dell-dks-dltr-eprx-gld-insm-kymr-modd-msft-n/"
+  },
+  {
+   "t": "Thrive in Markets｜S&P 500 Faces PCE Inflation Test in Thanksgiving Week",
+   "u": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-23/"
+  }
+ ]
+}
