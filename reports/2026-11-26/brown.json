@@ -1,0 +1,109 @@
+{
+ "agent": "brown",
+ "date": "2026-11-26",
+ "time": "07:44",
+ "summary": "美股感恩節前夕盤中急殺後大幅收斂：費半僅跌0.65%、台積電ADR跌1.96%，但折台股仍溢價約5.6%，台指期夜盤反彈274點；觀察：核心PCE 3.3%使12月Fed升息機率逾9成、美方擬對台課15%關稅，今晚美股休市、國際消息面轉淡。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊",
+   "value": "50,182.95",
+   "chg": "+164.25（+0.33%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500",
+   "value": "7,182.78",
+   "chg": "-18.31（-0.25%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克",
+   "value": "23,585.80",
+   "chg": "-147.74（-0.62%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數",
+   "value": "8,774.86",
+   "chg": "-57.64（-0.65%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR",
+   "value": "342.34",
+   "chg": "-6.86（-1.96%）",
+   "dir": "down"
+  },
+  {
+   "label": "美國10年期公債殖利率",
+   "value": "4.845%",
+   "chg": "-5.6bp",
+   "dir": "down"
+  },
+  {
+   "label": "美元指數",
+   "value": "103.62",
+   "chg": "-0.22%",
+   "dir": "down"
+  },
+  {
+   "label": "新台幣（11/25收盤）",
+   "value": "33.126",
+   "chg": "貶1.87角",
+   "dir": "down"
+  }
+ ],
+ "days": {
+  "prev": [
+   "美股盤中重挫：道瓊一度跌逾1,100點、那指一度跌4.6%，尾盤收斂，道瓊終場翻紅漲0.33%",
+   "輝達跌3.91%收149.30美元（盤中跌逾9%）、美光跌4.5%、甲骨文跌逾5%；Ambarella財報遜色重挫近20%",
+   "台積電ADR折台股2,269.61元，較台股收盤2,150元溢價5.56%；聯電ADR跌1.57%、日月光ADR漲0.55%",
+   "美10月PCE年增3.8%（前值3.7%）、核心PCE年增3.3%（預估3.2%）；市場押注12/9 FOMC升息1碼機率逾9成",
+   "白宮宣布對中國、歐盟等十多個貿易夥伴新關稅；據301調查結果擬對台灣商品課15%、中國20%",
+   "台指期夜盤漲274點至38,397點；新台幣11/25貶破33元收33.126元，外資賣超1,236.54億元"
+  ],
+  "today": [
+   "美股、美債感恩節休市",
+   "09:00 南韓央行利率決策（路透調查34位經濟學家中32位預期升1碼至3.25%）",
+   "09:00 日銀審議委員田村直樹於山梨演講（日銀政策利率1.25%）",
+   "ECB公布10月會議紀要；德國12月GfK消費者信心"
+  ],
+  "next": [
+   "07:30 東京11月CPI",
+   "中國10月工業利潤；法國、西班牙11月CPI初值；德國失業數據",
+   "ECB委員Vujcic談話；標普週五晚間公布法國信評",
+   "美股提前收盤：台灣時間週六02:00（美東13:00）"
+  ]
+ },
+ "sources": [
+  {
+   "t": "自由財經｜美股收盤》逢低買盤進場！道瓊收復千點跌幅上漲 台積電ADR跌近2％",
+   "u": "https://ec.ltn.com.tw/article/breakingnews/5653621"
+  },
+  {
+   "t": "聯合新聞網｜台積電ADR收盤跌近2% 台指期反彈274點",
+   "u": "https://udn.com/news/story/6811/9902571"
+  },
+  {
+   "t": "中央社｜利空夾擊外資出逃 新台幣收盤貶破33元爆史上第3大量",
+   "u": "https://www.cna.com.tw/news/afe/202611250272.aspx"
+  },
+  {
+   "t": "Motley Fool｜Stock Market Today, Nov. 25: Nvidia Slides 3.9%",
+   "u": "https://www.fool.com/coverage/stock-market-today/2026/11/25/stock-market-today-nov-25-nvidia-slides-3-9-as-the-market-considers-hot-pce-inflation-data-and-new-tariff-proposals/"
+  },
+  {
+   "t": "investingLive｜Economic and event calendar in Asia Thursday, November 26, 2026",
+   "u": "https://investinglive.com/central-banks/economic-and-event-calendar-in-asia-thursday-november-26-2026-bok-boj-turkey-later/"
+  },
+  {
+   "t": "Newsquawk｜Weekly Economic Calendar 23rd-27th November 2026",
+   "u": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---23rd-27th-november-2026"
+  }
+ ]
+}
