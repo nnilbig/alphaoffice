@@ -1,0 +1,110 @@
+{
+ "agent": "brown",
+ "date": "2026-11-27",
+ "time": "07:49",
+ "summary": "美股感恩節休市，國際消息偏多：美方301報告對台建議15%且不疊加，台股11/26大漲956點、新台幣升回32.947元，歐股同步大漲逾1.6%；觀察：核心PCE 3.3%與褐皮書示警通膨，12/8–9 FOMC升息預期仍是外資動向關鍵。",
+ "cols": [
+  "國際指標",
+  "收盤",
+  "漲跌"
+ ],
+ "kpis": [
+  {
+   "label": "道瓊（11/25）",
+   "value": "50,182.95",
+   "chg": "+164.25（+0.33%）",
+   "dir": "up"
+  },
+  {
+   "label": "S&P 500（11/25）",
+   "value": "7,182.78",
+   "chg": "-18.31（-0.25%）",
+   "dir": "down"
+  },
+  {
+   "label": "那斯達克（11/25）",
+   "value": "23,585.80",
+   "chg": "-147.74（-0.62%）",
+   "dir": "down"
+  },
+  {
+   "label": "費城半導體指數（11/25）",
+   "value": "8,774.86",
+   "chg": "-57.64（-0.65%）",
+   "dir": "down"
+  },
+  {
+   "label": "台積電 ADR（11/25）",
+   "value": "342.34",
+   "chg": "-6.86（-1.96%）",
+   "dir": "down"
+  },
+  {
+   "label": "美元指數（11/26）",
+   "value": "103.77",
+   "chg": "持平，止住2日跌勢",
+   "dir": "flat"
+  },
+  {
+   "label": "新台幣（11/26收盤）",
+   "value": "32.947",
+   "chg": "升1.79角",
+   "dir": "up"
+  },
+  {
+   "label": "德國DAX（11/26）",
+   "value": "25,215.52",
+   "chg": "+513.39（+2.08%）",
+   "dir": "up"
+  }
+ ],
+ "days": {
+  "prev": [
+   "11/26美股、美債感恩節休市；最近一個交易日11/25費半跌0.65%、台積電ADR跌1.96%",
+   "台積電ADR換算台股約2,268元，較11/25台股收盤2,150元溢價5.49%",
+   "美國301產能過剩報告建議對台15%、不疊加最惠國關稅，台灣列入與日韓歐同級最低級距",
+   "台股11/26漲956.38點收39,151.81點；新台幣升1.79角收32.947元，外資仍賣超491.81億元（連9賣）",
+   "南韓央行升息1碼至3.25%（今年第3次升息，7票中2票主張按兵不動），上修2027年GDP成長預估至4.1%",
+   "歐股11/26大漲：DAX +2.08%、富時100 +1.75%、CAC 40 +1.61%；美元兌日圓約159.2，市場提防160干預",
+   "Fed褐皮書：12區中8區成長、物價溫和上升、AI投資強勁；市場預期12/8–9 FOMC至少升息1碼（現3.75%–4.00%）"
+  ],
+  "today": [
+   "07:30 東京11月CPI（市場預估核心年增3%，前值2.4%）",
+   "法國、西班牙11月CPI初值；ECB官員談話",
+   "美國10月批發庫存、商品貿易收支",
+   "美股感恩節翌日提前收盤（黑色星期五）"
+  ],
+  "next": [
+   "週一11/30 中國11月官方製造業、非製造業PMI",
+   "日本10月工業生產、零售銷售；南韓10月工業生產",
+   "德國11月CPI初值、10月零售銷售；加拿大、印度第3季GDP",
+   "美國11月芝加哥PMI；本週續看12/1 ISM製造業、12/4非農就業"
+  ]
+ },
+ "sources": [
+  {
+   "t": "中央社｜科技股逢賣壓 美股多收黑",
+   "u": "https://www.cna.com.tw/news/afe/202611260013.aspx"
+  },
+  {
+   "t": "MoneyDJ｜11/25台積電等5家ADR收盤報價簡訊",
+   "u": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=1a94c4d5-842b-4244-aa66-586265b5dfe4"
+  },
+  {
+   "t": "中央社｜關稅疑慮降溫股匯齊揚 新台幣強升1.79角收32.947元",
+   "u": "https://www.cna.com.tw/news/afe/202611260254.aspx"
+  },
+  {
+   "t": "Korea JoongAng Daily｜BOK lifts rate to 3.25%",
+   "u": "https://www.koreajoongangdaily.com/business/bok-lifts-rate-to-325-as-it-sharply-upgrades-growth-forecasts-through-next-year/12991322"
+  },
+  {
+   "t": "TMGM/FXStreet｜Forex Today: US Dollar finds footing as Japan CPI can rock the Yen",
+   "u": "https://www.tmgm.com/en-in/analysis/market-news/article/forex-today-us-dollar-finds-footing-as-japan-cpi-can-rock-the-yen-202611262124"
+  },
+  {
+   "t": "MoneyDJ｜下週(11/30-12/4)全球重要經濟數據預告",
+   "u": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=62e1088d-a1c1-4f07-96da-01f85ab38e6f"
+  }
+ ]
+}
