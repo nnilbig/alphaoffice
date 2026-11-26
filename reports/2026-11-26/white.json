@@ -1,0 +1,46 @@
+{
+ "agent": "white",
+ "date": "2026-11-26",
+ "time": "08:21",
+ "summary": "11/25台股重挫1,926.92點收38,195.43點、外資賣超1,236.54億元連8賣，但美股盤中急殺後收斂、台指期夜盤由跌逾2,000點V轉收漲274點；今晚美股感恩節休市，盤面焦點回到前一日重挫族群能否止跌與外資動向。",
+ "obs": [
+  {
+   "text": "11/25加權指數跌4.80%收38,195.43點，外資賣超1,236.54億元為史上第7大、連8賣，投信買超535.32億元",
+   "from": "Mikan・盤勢"
+  },
+  {
+   "text": "台指期夜盤最低35,933點後V轉，收38,397點漲274點，高於現貨收盤約202點",
+   "from": "Mikan・盤勢"
+  },
+  {
+   "text": "核心PCE年增3.3%高於預估，市場押注12/9 FOMC升息1碼機率逾9成；美方擬依301調查對台灣商品課15%關稅",
+   "from": "Hojicha・國際"
+  },
+  {
+   "text": "觀察前一日跌停的半導體、AI伺服器、塑化族群是否止跌；聯發科、聯電、南亞科、創意均收跌停",
+   "from": "Nori・產業"
+  },
+  {
+   "text": "今晚美股、美債感恩節休市；09:00南韓央行利率決策，多數經濟學家預期升1碼",
+   "from": "Hojicha・國際"
+  }
+ ],
+ "sources": [
+  {
+   "t": "華視（中央社）｜外資賣超1236億史上第7大 投信狂買535億",
+   "u": "https://news.cts.com.tw/cna/money/202611/202611253105122.html"
+  },
+  {
+   "t": "FTNN｜台指期夜盤崩跌破2000點後大V轉 由黑翻紅硬漲274點",
+   "u": "https://www.ftnn.com.tw/news/599669"
+  },
+  {
+   "t": "Motley Fool｜Stock Market Today, Nov. 25: Nvidia Slides 3.9%",
+   "u": "https://www.fool.com/coverage/stock-market-today/2026/11/25/stock-market-today-nov-25-nvidia-slides-3-9-as-the-market-considers-hot-pce-inflation-data-and-new-tariff-proposals/"
+  },
+  {
+   "t": "MoneyDJ｜《台股盤後》重挫1926點/寫史上第6大跌點 失守年線",
+   "u": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=061051f5-2054-4032-a4e2-1abce9d03d8c"
+  }
+ ]
+}
